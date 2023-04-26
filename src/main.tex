@@ -29,7 +29,7 @@
 
 \newenvironment{note}{\begin{bluebox}}{\end{bluebox}}
 \newenvironment{warning}{\begin{redbox}}{\end{redbox}}
-
+\makeindex
 
 
 \title{Mathematics}
@@ -152,6 +152,8 @@ This becomes quite tangible when applied to concrete objects such as graphs, who
   \end{enumerate}
 
   The \indx{order} of a group \(G\), denotes \(|G|\) is the cardinality of the underlying set.
+
+  The \indx{order} of an element \(g \in G\) is the smallest natural number \(n\) such that \(g^{n} \coloneqq \underbrace{g * g * \ldots * g}_{n} = e\).
 \end{definition}
 
 
@@ -284,7 +286,7 @@ The most important type of subgroup are the normal subgroups.
 
 We reach the titular theorem of this section.
 
-\begin{theorem}
+\begin{theorem}[Lagrange's Theorem]
   Let \(H\) be a subgroup of a finite group \(G\). Then
   \[|G| = [G : H]|H|.\]
 \end{theorem}
@@ -313,13 +315,96 @@ We reach the titular theorem of this section.
 
 
 
+\begin{corollary}
+\label{cor:group-theory:order-divides-group}
+  Suppose \(G\) is a finite group and \(g \in G\).
+  %
+  Then, \(o(g) \mid \left|G\right|\).
+\end{corollary}
+
+\begin{proof}
+  The subgroup \(\langle g \rangle \leq G\) has order \(o(g)\), and so by Lagrange's theorem, \(o(g)\) must divide \(|G|\).
+\end{proof}
+
+\begin{corollary}
+\label{cor:group-theory:g-to-power-of-group-order-is-e}
+  Suppose \(G\) is a finite group.
+  %
+  For all \(g \in G\), \(g^{\abs{G}} = e\).
+\end{corollary}
+
+\begin{proof}
+  By Corollary~\ref{cor:group-theory:order-divides-group}, \(|G| = k \times o(g)\), for a fixed \(g \in G\).
+  %
+  Then, \(g^{\abs{G}} = g^{k \times o(g)} = e^{k} = e\).
+\end{proof}
+
+\begin{corollary}
+  Let \(G\) be a finite group.
+  %
+  If \(\abs{G}\) is prime, then \(G\) is cyclic.
+\end{corollary}
+
+\begin{proof}
+  If \(\abs{G}\) is prime, the only subgroups are \(\{e\}\) and \(G\).
+  %
+  Since \(\langle g \rangle \leq G\) is non-trivial for non-identity elements \(g \in G\), it must be the whole group.
+  %
+  Therefore, \(G\) is equal to a cyclic subgroup and is cyclic itself.
+\end{proof}
 
 
+Lagrange's Theorem can be used to prove Fermat's second most famous theorem.
+
+\begin{theorem}
+ \label{thm:group-theory:fermats-little-theorem}
+ If \(p\) is a prime and \(a \in \Z\), then
+ \[a^{p} \equiv a \mod p.\]
+\end{theorem}
+
+\begin{proof}
+  This holds trivially for \(a = 0\), so assume \(a \not\equiv 0 mod p\).
+  %
+  Then, \(g\) is in the multiplicative group of units \(\Z^{*}_{p}\), which has order \(p-1\). By Corollary~\ref{cor:group-theory:g-to-power-of-group-order-is-e}, \(a^{p-1} \equiv 1 \mod p\), and so \(a^{p} \equiv a \mod p\).
+\end{proof}
+
+Wilson's Theorem also follows as an application of Lagrange's Theorem.
+
+\begin{theorem}[Wilson's Theorem]
+  \label{thm:group-theory:wilsons-theorem}
+  If \(p\) is a prime number then the following hold:
+  \begin{enumerate}
+  \item
+    In \(\Z^{*}_{p}\), only \(1\) and \(p-1\) are their own inverses.
+  \item
+    \((p - 1)! \equiv -1 \mod p\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  We prove both parts.
+  \begin{enumerate}
+  \item
+    Clearly, 1 and \(p-1\) are their own inverses.
+    %
+    Take \(1 < a < p -1\).
+    %
+    Neither \(a-1\) nor \(a+1\) are multiples of \(p\) and as \(p\) is prime, \((a-1)(a+1) = a^{2} -1\) is not a multiple of \(p\).
+    %
+    Therefore, \(a^{2}-1 \not\equiv 0 \mod p\), and so \(a^{2} \not\equiv 1 \mod p\) proving that \(a\) is not its own inverse.
+
+  \item
+    This follows by a simple counting argument.
+    %
+    Every element \(a \in \{2, \ldots, p-2\}\) can be paired up with its inverse, which is also in that range.
+    %
+    Therefore, the product \((p-1)! \equiv p-1 \equiv -1 \mod p\).
+  \end{enumerate}
+\end{proof}
 
 
-
-
-
+\section{Group homomorphisms}
+\label{sec:group-theory:group-homomorphisms}
 
 
 
@@ -388,5 +473,6 @@ We reach the titular theorem of this section.
 \chapter{Higher Category Theory}\label{cha:high-categ-theory}
 \chapter{Multidimensional Category Theory}\label{cha:mult-categ-theory}
 
+\printindex
 \printbibliography%
 \end{document}
