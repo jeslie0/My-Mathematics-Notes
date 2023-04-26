@@ -5,9 +5,12 @@
 *main.bbl
 *main.run.xml
 *main.out
+*main.tdo
 *.toc
 *.fdb_latexmk
 *.fls
+
+.envrc
 
 result*
 .direnv

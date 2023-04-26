@@ -10,18 +10,22 @@
 \fancyfoot[c]{\thepage}
 \fancyfoot[r]{}
 
+\usepackage{microtype}
+\usepackage{todonotes}
+
 \usepackage{math-packages}
 \usepackage{math-environments}
 \usepackage{math-macros}
 \usepackage{tikz}
 
-\usepackage{fontspec}
-\setmainfont{Gill Sans Light}
+% \usepackage{fontspec}
+% \setmainfont{Gill Sans Light}
 
 \usepackage[citestyle=alphabetic,
-% bibstyle=authortitle,
-backend=biber]{biblatex}
+            bibstyle=authortitle,
+            backend=biber]{biblatex}
 \addbibresource{bibliography.bib}
+
 
 \newenvironment{note}{\begin{bluebox}}{\end{bluebox}}
 \newenvironment{warning}{\begin{redbox}}{\end{redbox}}
@@ -32,18 +36,39 @@ backend=biber]{biblatex}
 \author{James Leslie}
 \date{\today}
 \begin{document}
+\listoftodos{}
 \maketitle
 \tableofcontents
 
-\part{Pre-Honours Courses}\label{part:pre-honours-courses}
-\chapter{Introduction to Group Theory}\label{cha:intr-group-theory}
-Introduction to Group Theory was my first ``real'' taste of algebra at university. It was half of the course Fundamental of Pure Mathematics, the other half being an introduction to real analysis. I took this course in the second semester of my second year in 2015, and the group theory part was taught by \href{https://www.maths.gla.ac.uk/~mwemyss/}{Michael Wemyss}. This chapter is based off the notes~\cite{wemyss2015grouptheory}.
+
+\part{Algebra}
+\chapter{Group Theory}\label{cha:intr-group-theory}
+Group theory is the study of symmetries, or more abstractly, automorphisms.
+%
+Introduction to Group Theory was my first ``real'' taste of algebra at university.
+%
+It was half of the course Fundamental of Pure Mathematics, the other half being an introduction to real analysis.
+%
+I took this course in the second semester of my second year in 2015, and the group theory part was taught by \href{https://www.maths.gla.ac.uk/~mwemyss/}{Michael Wemyss}.
+%
+It was followed up by a fourth year course ``Group Theory''.
+
+
+This chapter is based off the notes~\cite{wemyss2015grouptheory} and~\cite{lanini2017grouptheory}.
+
 
 \section{Groups and Symmetries}
-The study of any area of pure mathematics needs to be well motivated. Group theory is really the study of automorphisms. This becomes quite tangible when applied to concrete objects such as graphs, whose automorphisms are symmetries.
+The study of any area of pure mathematics needs to be well motivated.
+%
+Group theory is really the study of automorphisms.
+%
+This becomes quite tangible when applied to concrete objects such as graphs, whose automorphisms are symmetries.
+
 
 \begin{definition}\cite[Definition 1.1.1]{wemyss2015grouptheory}\label{def:intr-group-theory:graph}
-  A \indx{graph} is a finite set of vertices, with at most one edge between any two vertices. There are no self edges allowed.
+  A \indx{graph} is a finite set of vertices, with at most one edge between any two vertices.
+  %
+  There are no self edges allowed.
 \end{definition}
 
 \begin{example}
@@ -81,17 +106,37 @@ The study of any area of pure mathematics needs to be well motivated. Group theo
     \end{tikzpicture}
   \end{centre}
 
-  Let \(f\) be an arbitrary symmetry. By definition, \(f\) must preserve the valency of vertices. As vertex 5 is the only vertex of valency 2, we must have that \(f(5) = 5\). Since vertices 2 and 3 are the only vertices of valency 3, \(f\) can either fix them, or swap them.
+  Let \(f\) be an arbitrary symmetry.
+  %
+  By definition, \(f\) must preserve the valency of vertices.
+  %
+  As vertex 5 is the only vertex of valency 2, we must have that \(f(5) = 5\).
+  %
+  Since vertices 2 and 3 are the only vertices of valency 3, \(f\) can either fix them, or swap them.
   \begin{enumerate}
-    \item Suppose they are fixed. Then \(f\) fixes both 1 and 4 as \(f(1)\) has valency 1 and must be connected to \(f(2) = 2\), hence \(f(1) = 1\). A similar argument applies to vertex 4. The completes the case where \(f\) fixes vertex 2 and 3.
-    \item Suppose they are swapped. Then \(f(1) = 4\), as \(f(1)\) must have valency 1 and be connected to \(f(3) = 3\). Likewise, \(f(4) = 1\).
+  \item
+    Suppose they are fixed.
+    %
+    Then \(f\) fixes both 1 and 4 as \(f(1)\) has valency 1 and must be connected to \(f(2) = 2\), hence \(f(1) = 1\).
+    %
+    A similar argument applies to vertex 4.
+    %
+    The completes the case where \(f\) fixes vertex 2 and 3.
+  \item
+    Suppose they are swapped.
+    %
+    Then \(f(1) = 4\), as \(f(1)\) must have valency 1 and be connected to \(f(3) = 3\).
+    %
+    Likewise, \(f(4) = 1\).
   \end{enumerate}
 
   Hence there are exactly two symmetries.
 \end{example}
 
 \begin{note}
-  The definition of a symmetry is not dependent on the embedding of the graph in the plane. It is easy to visually inspect a graph and gain an intuition about the symmetries, but a formal proof requires one to be more precise.
+  The definition of a symmetry is not dependent on the embedding of the graph in the plane.
+  %
+  It is easy to visually inspect a graph and gain an intuition about the symmetries, but a formal proof requires one to be more precise.
 \end{note}
 
 
@@ -109,38 +154,162 @@ The study of any area of pure mathematics needs to be well motivated. Group theo
   The \indx{order} of a group \(G\), denotes \(|G|\) is the cardinality of the underlying set.
 \end{definition}
 
+
 \begin{example}
   The automorphisms of an object (i.e the symmetries of a graph) form a group.
 \end{example}
+
 
 \begin{example}
   The integers \(\Z\) form a group under addition.
 \end{example}
 
-\begin{example}
-  \(S_{n}\), the \index{symmetric group} on \(n\) elements is the set of permutations of \(\{1, \ldots, n\}\). It is a group under composition.
 
-  We typically use cycle notation \((123)(12): S_{3} \to S_{3}\), where \((123)\) means the permutation sending 1 to 2, 2 to 3 and 3 to 1. Two bracket cycles next to each other for a permutation by composition.
+\begin{example}\label{ex:group-theory:symmetric-group}
+  \(S_{n}\), the \index{symmetric group} on \(n\) elements is the set of permutations of \(\{1, \ldots, n\}\).
+  %
+  It is a group under composition.
+
+
+  We typically use cycle notation \((123)(12): S_{3} \to S_{3}\), where \((123)\) means the permutation sending 1 to 2, 2 to 3 and 3 to 1.
+  %
+  Two bracket cycles next to each other for a permutation by composition.
 \end{example}
 
 \begin{example}
+  The \(n^{\text{th}}\) \indx{dihedral} group is the group of symmetries of the \(n\)-gon.
+  %
+  It has \(2n\) elements: \(n\) rotations and \(n\) reflections.
 
+  \begin{centre}
+    \begin{tikzpicture}
+      \node[shape=circle, draw=blue] (A) at (-1,1) {};
+      \node[shape=circle, draw=blue] (B) at (1,1) {};
+      \node[shape=circle, draw=blue] (C) at (1,-1) {};
+      \node[shape=circle, draw=blue] (D) at (-1,-1) {};
+
+      \node[] (E) at (2,2) {};
+      \node[] (F) at (-2,-2) {};
+      \node[] (G) at (0,2) {};
+      \node[] (H) at (0,-2) {};
+
+      \path [-] (A) edge (B);
+      \path [-] (B) edge (C);
+      \path [-] (C) edge (D);
+      \path [-] (D) edge (A);
+
+      \path [-] (E) edge (F);
+      \path [-] (G) edge (H);
+    \end{tikzpicture}
+  \end{centre}
 \end{example}
-% TODO Add more examples
-
-\section{First properties of groups}\label{sec:intro-to-group-theory:first-prop-groups} % TODO
-
-\section{Lagrange's Theorem and applications}\label{sec:intro-to-group-theory:lagrange} % TODO
-
-\section{Homomorphisms and isomorphisms}\label{sec:intro-to-group-theory:homomorphisms} % TODO
-
-\section{Group actions}\label{sec:intro-to-group-theory:group-actions} % TODO
-
-\section{Symmetric and alternating groups}\label{sec:intro-to-group-theory:symmetric-alternating-groups} % TODO
-
-\section{Conjugacy and normal subgroups}\label{sec:intro-to-group-theory:conjugacy-normal-subgroups} % TODO
+\todo{add more examples}
 
 
+\section{Subgroups and Lagrange's Theorem}
+
+\begin{definition}\label{def:group-theory:subgroup}
+  A \indx{subgroup} \(H\) of a group \(G\) is a subset \(H \subset G\) such that it is still a group under the restriction of the structure of \(G\) to \(H\).
+  %
+  That is, if the following hold:
+  \begin{enumerate}
+  \item For all \(h, k \in H\), \(hk \in H\);
+  \item For all \(h \in H\), \(h^{-1} \in H\).
+  \end{enumerate}
+
+
+  We write \(H \leq G\) to say that \(H\) is a subgroup of \(G\).
+\end{definition}
+
+
+\begin{lemma}\label{lem:group-theory:subgroup-test}
+  Let \(H \subset G\).
+  %
+  Then \(H \leq G\) if and only if \(hk^{-1} \in H\) for all \(h,k \in H\).
+\end{lemma}
+
+
+\begin{example}
+  The group of rotations of an \(n\)-gon are a subgroup of \(D_{n}\).
+\end{example}
+
+
+\begin{example}
+  The \(n\)-th \indx{alternating group}, denoted \(A_{n}\) is the subgroup of \(S_{n}\) consisting of all permutations that can be written as the product of an even number of 2-cycles.
+\end{example}
+
+\begin{example}
+  Let \(F\) be a field.
+  %
+  The \indx{general linear group} \(GL(n, F)\) is the set of all invertible \(n \times n\) matrices over \(F\).
+  %
+  The \indx{special linear group} \(SL(n, F)\) is the set of all \(n \times n\) matrices over \(F\) with determinant \(1\).
+  %
+  It is a subgroup of \(GL(n, F)\).
+\end{example}
+
+
+An important construct from a subgroup \(H \leq G\) is that of the left and right cosets.
+
+\begin{definition}\label{def:group-theory:coset}
+  Let \(H \leq G\), and \(g \in G\).
+  %
+  The \indx{left coset} of \(H\) determined by \(g\) is the set \(gH \coloneqq \{gh \mid h \in H\}\).
+  %
+  Similarly, the \indx{right coset} of \(H\) determined by \(G\) is \(Hg\).
+
+
+  The number of left cosets of a subgroup \(H \leq G\) is called the \indx{index} of \(H\) in \(G\), and is denoted \([G : H]\).
+\end{definition}
+
+\begin{example}
+  Let \(G\) be a group and let \(g \in G\).
+  %
+  Then, \(\langle g \rangle \coloneqq \{g^{n} \mid n \in \Z\}\) is a subgroup of \(G\) called the \indx{subgroup generated by \(g\)}.
+  %
+  If \(G = \langle g \rangle\) for some \(g \in G\), then we say that \(G\) is \indx{cyclic}.
+\end{example}
+
+\begin{lemma}
+  If \(G\) is a cyclic group, then either \(G \iso C_{n}\) for some \(n \in \N\) or \(G \iso (\Z, +)\).
+\end{lemma}
+
+The most important type of subgroup are the normal subgroups.
+
+\begin{definition}
+  A subgroup \(H \leq G\) is \indx{normal} if \(gH = Hg\) for all \(g \in G\).
+  %
+  We write \(H \triangleleft G\) to say that \(H\) is normal in \(G\).
+\end{definition}
+
+We reach the titular theorem of this section.
+
+\begin{theorem}
+  Let \(H\) be a subgroup of a finite group \(G\). Then
+  \[|G| = [G : H]|H|.\]
+\end{theorem}
+
+\begin{proof}
+  This follows from the fact that the cosets of a subgroup \(H\) partition \(G\), and each coset has the same size.
+
+
+  Suppose that \(g \in aH\) and \(g \in bH\), for some \(a, b \in G\).
+  %
+  Then some simple algebra shows that \(a \in bH\) and \(b \in aH\), from which we deduce that \(a = b h_{1}\) and \(b = a h_{2}\) for some \(h_{1}, h_{2} \in H\).
+  %
+  Then any \(ah \in aH\) is equal to \(bh_{1}h \in bH\), so \(aH \subset bH\).
+  %
+  Similarly, we can show that \(bH \subset aH\), and so \(aH = bH\).
+  %
+  Therefore \(aH = bH\) or \(aH \cap bH = \emptyset\).
+  %
+  It is also clear that every \(g \in G\) is in \(gH\), and so cosets partition \(G\).
+
+
+  It is also clear that the function \(ah_{1} \mapsto bh_{1}\)  from \(aH \to bH\) is a bijection, and so any two left cosets of H have the same cardinality.
+
+  This completes the proof of Lagrange's Theorem.
+\end{proof}
 
 
 
@@ -150,43 +319,67 @@ The study of any area of pure mathematics needs to be well motivated. Group theo
 
 
 
-\chapter{Introduction to Real Analysis}\label{cha:intr-real-analys}
-\chapter{Calculus}\label{cha:calculus}
-\chapter{Probability with Applications}\label{cha:prob-with-appl}
-\chapter{Statistics}\label{cha:statistics}
 
-\part{Honours Courses}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Introduction to Number Theory}\label{cha:intr-numb-theory}
 \chapter{Honours Algebra}\label{cha:honours-algebra}
+\chapter{Commutative Algebra}\label{cha:commutative-algebra}
+\chapter{Galois Theory}\label{cha:galois-theory}
+\chapter{Lie Algebras}\label{cha:lie-algebras}
+
+
+
+\part{Analysis and calculus}
+\chapter{Calculus}\label{cha:calculus}
+\chapter{Introduction to Real Analysis}\label{cha:intr-real-analys}
 \chapter{Honours Analysis}\label{cha:honours-analysis}
 \chapter{Complex Variables}\label{cha:complex-variables}
 \chapter{Honours Differential Equations}\label{cha:hono-diff-equat}
-
-\part{Post-honours Courses}\label{part:post-honours-courses}
-\chapter{Geometry}\label{cha:geometry}
-\chapter{Combinatorics and Graph Theory}\label{cha:comb-graph-theory}
-\chapter{Commutative Algebra}\label{cha:commutative-algebra}
 \chapter{Essentials in Analysis and Probability\label{cha:essent-analys-prob}}
-\chapter{Introduction to Number Theory}\label{cha:intr-numb-theory}
-\chapter{General Topology}\label{cha:general-topology}
-\chapter{Algebraic Topology}\label{cha:algebraic-topology}
-\chapter{Group Theory}\label{cha:group-theory}
-This is a continuation of the Group Theory learned in Chapter~\ref{cha:intr-group-theory}
-
-
-
-
-
-\chapter{Galois Theory}\label{cha:galois-theory}
 \chapter{Linear Analysis}\label{cha:linear-analysis}
 \chapter{Fourier Analysis}\label{cha:fourier-analysis}
-
-\part{Graduate Studies}\label{part:graduate-studies}
-
-\chapter{Algebraic Geometry}\label{cha:algebraic-geometry}
-\chapter{Complex Algebraic Curves}\label{cha:compl-algebr-curv}
-\chapter{Lie Algebras}\label{cha:lie-algebras}
 \chapter{Quantum Information}\label{cha:quantum-information}
 \chapter{Variational Calculus}\label{cha:variational-calculus}
+
+\part{Combinatorics, probability and statistics}
+\chapter{Probability with Applications}\label{cha:prob-with-appl}
+\chapter{Statistics}\label{cha:statistics}
+\chapter{Combinatorics and Graph Theory}\label{cha:comb-graph-theory}
+
+\part{Topology and Geometry}
+\chapter{Geometry}\label{cha:geometry}
+\chapter{General Topology}\label{cha:general-topology}
+\chapter{Algebraic Topology}\label{cha:algebraic-topology}
+\chapter{Algebraic Geometry}\label{cha:algebraic-geometry}
+\chapter{Complex Algebraic Curves}\label{cha:compl-algebr-curv}
+
+
 
 
 \part{Category Theory and its Applications}\label{part:category-theory-its}
