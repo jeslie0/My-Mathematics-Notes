@@ -1,11 +1,6 @@
-*auto
-*main.aux
-*main.bcf
-*main.blg
-*main.bbl
-*main.run.xml
-*main.out
-*main.tdo
+src/*main*
+src/auto
+!src/main.tex
 *.toc
 *.fdb_latexmk
 *.fls
