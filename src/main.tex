@@ -406,12 +406,116 @@ Wilson's Theorem also follows as an application of Lagrange's Theorem.
 \section{Group homomorphisms}
 \label{sec:group-theory:group-homomorphisms}
 
+We now turn to the morphisms between groups.
+
+\begin{definition}
+  \label{def:group-theory:group-homomorphism}
+  Let \(G, H\) be groups.
+  %
+  A function \(\phi : G \to H\) such that \(\phi(ab) = \phi(a) \phi(b)\), for all \(a, b \in G\) is a \indx{group homomorphism}.
+\end{definition}
+
+\begin{lemma}
+  Let \(\phi : G \to H\) be a group homomorphism.
+  %
+  Then the following hold:
+  \begin{enumerate}
+  \item
+    \(\phi(e) = e\) and \(\phi(g^{-1}) = \phi(g) ^{-1}\).
+  \item
+    If \(\phi\) is injective, then \(o(g) = o\left(\phi(g)\right)\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \begin{enumerate}
+  \item
+    We have the following equalities hold:
+    \begin{align*}
+      \phi(e) &= \phi(ee) \\
+              &= \phi(e) \phi(e).
+    \end{align*}
+    %
+    Therefore, we can apply \(\phi(e)^{-1}\) to both sides of the equation and cancel to get \(\phi(e) = e\).
+    %
+    Recalling that inverses are unique, \(\phi(g)\phi(g^{-1}) = \phi(gg^{-1}) = \phi(e) = e\).
+    %
+    Applying the similar proof by multiplying \(\phi(g)\) on the left, we deduce that \(\phi(g^{-1}) - \phi(g)^{-1}\).
+
+  \item
+    Suppose that \(o(\phi(g)) = n\).
+    %
+    Then, \(e = \phi(e) = \phi(g)^{n} = \phi(g^{n})\), and so by injectivity of \(\phi\), \(e = g^{n}\).
+    %
+    Suppose there exists \(0 < k < n\) such that \(g^{k} = e\). Then, \(e = \phi(e) = \phi(g^{k}) = \phi(g)^{k}\), which contradicts \(n\) being the order of \(o(\phi(g))\). Hence \(n\) is the order of \(g\).
+
+  \end{enumerate}
+\end{proof}
+
+\begin{example}
+  Let \(C_{n}\) be the \indx{cyclic group of order \(n\)}, which is defined as the set of rotations of the equilateral \(n\)-gon.
+  %
+  If \(g\) is a rotation by \(2 \pi /n \) radians, then \(C_{n} \coloneqq \langle g \rangle\).
+  %
+  The function
+  \begin{align*}
+    \phi : \Z &\to C_{n} \\
+    a &\mapsto g^{a}
+  \end{align*}
+  is a group homomorphism.
+\end{example}
 
 
+\begin{definition}
+  \label{def:group-theory:group-isomorphism}
+  Let \(G, H\) be groups and \(\psi : G \to H\) a group homomorphism.
+  %
+  We say that \(\phi\) is a \indx{group isomorphism} if there is a group homomorphism \(\psi\) such that \(phi\) and \(\psi\) are inverse functions.
+
+  If there exists an isomorphism \(\psi : G \to H\), we say \(G\) and \(H\) are \indx{isomorphic as groups}, and write \(G \iso H\).
+\end{definition}
+
+\begin{lemma}
+  \label{lem:group-theory:groups-of-order-p-are-isomorphic}
+  If \(p\) is a prime number, then all groups of order \(p\) are isomorphic.
+\end{lemma}
+
+\begin{proof}
+  Let \(G, H\) be groups of order \(p\).
+  %
+  Then, every non-identity element has order \(p\), since by Lagrange's Theorem every non-trivial subgroup is equal to the whole group.
+  %
+  Choose a non-identity element \(g \in G\) and \(h \in H\).
+  %
+  The function mapping \(g^{n} \mapsto h^{n}\) is well defined and is a bijective group homomorphism.
+  %
+  Hence, \(G \iso H\).
+\end{proof}
+
+\begin{lemma}
+  All cyclic groups of order \(n\) are isomorphic.
+\end{lemma}
+
+\begin{proof}
+  This is the same proof as Lemma~\ref{lem:group-theory:groups-of-order-p-are-isomorphic}.
+\end{proof}
 
 
+Given a group homomorphism, we can always extract a new group from it.
 
+\begin{definition}
+  Let \(\phi:G \to H\) be a group homomorphism.
+  %
+  The \indx{kernel} of \(\phi\) is the subset \(\{g \in G \mid \phi(g_) = e\}\).
+\end{definition}
 
+\begin{lemma}
+  The kernel of a homomorphism \(\phi : G \to H\) (denoted \(\ker(\phi)\)) is a subgroup of \(G\).
+\end{lemma}
+
+\begin{proof}
+ Clearly, for all \(g, h \in \ker(\phi)\) we have that \(\phi(gh^{-1}) = \phi(g)\phi(h)^{-1} = e\), and as \(e \in \ket(\phi)\), \(\ker(\phi)\) is a subgroup of \(G\).
+\end{proof}
 
 
 
