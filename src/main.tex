@@ -31,6 +31,8 @@
 \newenvironment{warning}{\begin{redbox}}{\end{redbox}}
 \makeindex
 
+\newcommand{\Aut}{\operatorname{Aut}}
+
 
 \title{Mathematics}
 \author{James Leslie}
@@ -156,6 +158,7 @@ This becomes quite tangible when applied to concrete objects such as graphs, who
   The \indx{order} of an element \(g \in G\) is the smallest natural number \(n\) such that \(g^{n} \coloneqq \underbrace{g * g * \ldots * g}_{n} = e\).
 \end{definition}
 
+We may sometimes explicitly denote the group and its operation, when it is necessary, by \((G, *)\).
 
 \begin{example}
   The automorphisms of an object (i.e the symmetries of a graph) form a group.
@@ -224,7 +227,8 @@ This becomes quite tangible when applied to concrete objects such as graphs, who
 \end{definition}
 
 
-\begin{lemma}\label{lem:group-theory:subgroup-test}
+\begin{lemma}[Subgroup criterion]
+  \label{lem:group-theory:subgroup-criterion}
   Let \(H \subset G\).
   %
   Then \(H \leq G\) if and only if \(hk^{-1} \in H\) for all \(h,k \in H\).
@@ -273,28 +277,11 @@ An important construct from a subgroup \(H \leq G\) is that of the left and righ
 \end{example}
 
 \begin{lemma}
-  If \(G\) is a cyclic group, then either \(G \iso C_{n}\) for some \(n \in \N\) or \(G \iso (\Z, +)\).
+  \label{lem:group-theory:cosets-partition-a-group}
+  Let \(H \leq G\) be a subgroup. Then the cosets \(gH\) partition the group \(G\).
 \end{lemma}
 
-The most important type of subgroup are the normal subgroups.
-
-\begin{definition}
-  A subgroup \(H \leq G\) is \indx{normal} if \(gH = Hg\) for all \(g \in G\).
-  %
-  We write \(H \triangleleft G\) to say that \(H\) is normal in \(G\).
-\end{definition}
-
-We reach the titular theorem of this section.
-
-\begin{theorem}[Lagrange's Theorem]
-  Let \(H\) be a subgroup of a finite group \(G\). Then
-  \[|G| = [G : H]|H|.\]
-\end{theorem}
-
 \begin{proof}
-  This follows from the fact that the cosets of a subgroup \(H\) partition \(G\), and each coset has the same size.
-
-
   Suppose that \(g \in aH\) and \(g \in bH\), for some \(a, b \in G\).
   %
   Then some simple algebra shows that \(a \in bH\) and \(b \in aH\), from which we deduce that \(a = b h_{1}\) and \(b = a h_{2}\) for some \(h_{1}, h_{2} \in H\).
@@ -306,7 +293,21 @@ We reach the titular theorem of this section.
   Therefore \(aH = bH\) or \(aH \cap bH = \emptyset\).
   %
   It is also clear that every \(g \in G\) is in \(gH\), and so cosets partition \(G\).
+\end{proof}
 
+\begin{lemma}
+  If \(G\) is a cyclic group, then either \(G \iso C_{n}\) for some \(n \in \N\) or \(G \iso (\Z, +)\).
+\end{lemma}
+
+We reach the titular theorem of this section.
+
+\begin{theorem}[Lagrange's Theorem]
+  Let \(H\) be a subgroup of a finite group \(G\). Then
+  \[|G| = [G : H]|H|.\]
+\end{theorem}
+
+\begin{proof}
+  This follows from Lemma~\ref{lem:group-theory:cosets-partition-a-group}, along with the fact that each coset has the same size.
 
   It is also clear that the function \(ah_{1} \mapsto bh_{1}\)  from \(aH \to bH\) is a bijection, and so any two left cosets of H have the same cardinality.
 
@@ -510,24 +511,198 @@ Given a group homomorphism, we can always extract a new group from it.
 \end{definition}
 
 \begin{lemma}
+\label{lem:group-theory:kernels-are-subgroups}
   The kernel of a homomorphism \(\phi : G \to H\) (denoted \(\ker(\phi)\)) is a subgroup of \(G\).
 \end{lemma}
 
 \begin{proof}
- Clearly, for all \(g, h \in \ker(\phi)\) we have that \(\phi(gh^{-1}) = \phi(g)\phi(h)^{-1} = e\), and as \(e \in \ket(\phi)\), \(\ker(\phi)\) is a subgroup of \(G\).
+ Clearly, for all \(g, h \in \ker(\phi)\) we have that \(\phi(gh^{-1}) = \phi(g)\phi(h)^{-1} = e\), and as \(e \in \ker(\phi)\), \(\ker (\phi)\) is a subgroup of \(G\).
 \end{proof}
 
 
+\begin{lemma}
+  A group homomorphism \(\phi : G \to H\) is injective if and only if \(\ker{\phi} = \{e\}\).
+\end{lemma}
+
+\begin{proof}
+  Supposing that \(\phi\) is injective, as \(\phi(e) = e\), all elements of the kernel (which are of the form \(\phi(g)\)) must be equal to \(e\).
+
+  Assuming the kernel is trivial, \(\phi(g) = \phi(h)\) implies \(\phi(gh^{-1}) = e\), and so \(gh^{-1} = e\).
+  %
+  Therefore, \(g = h\) and \(\phi\) is injective.
+\end{proof}
+
+\begin{definition}
+  Let \(\phi : G \to H\) be a group homomorphism.
+  %
+  The \indx{image} of \(\phi\) is defined as \(\{\phi(g) \in H \mid g \in G\}\), and is denoted \(\Im \phi\).
+\end{definition}
+
+\begin{lemma}
+  Let \(\phi : G \to H\) be a group homomorphism.
+  %
+  The \(\Im \phi\) is a subgroup of \(H\).
+\end{lemma}
+
+\begin{proof}
+  Let \(g, h \in \Im \phi\).
+  %
+  Then \(gh^{-1} = \phi(a)\phi(b)^{-1} = \phi(ab^{-1})\), for some \(a,b \in G\).
+  %
+  As \(e = \phi(e) \in \Im \phi\), \(\Im \phi\) is non-empty and by the Subgroup Criterion, \(\Im \phi\) is a subgroup of \(H\).
+\end{proof}
+
+\begin{definition}
+  \label{def:group-theory:automorphism-group}
+  Let \(G\) be a group.
+  %
+  The set of all isomorphisms \(\phi : G \to G\) forms a group with composition and inverses, and is called the \indx{automorphisms group} of \(G\), denoted \(\Aut (G)\).
+\end{definition}
+
+\begin{example}
+  For prime \(p\), \(\Aut(C_{p}) \iso \Z^{*}_{p} \iso C_{p-1}\).
+\end{example}
+
+\begin{definition}
+  Let \(G, H\) be groups.
+  %
+  The \indx{product group} \(G \times H\) is the group of pairs of elements \(g \in G, h \in H\), with group operations defined pointwise.
+\end{definition}
+
+\begin{example}
+  For coprime \(m, n\), \(C_{m} \times C_{n} \iso C_{mn}\).
+  %
+  The element \((1,1) \in C_{m} \times C_{n}\) must have order \(mn\), hence \(\langle (1,1)\rangle= \C_{m} \times C_{n}\) is isomorphic to the cyclic group of order \(mn\).
+  %
+  If there is a \(1 < k < mn\) such that \((1,1)^{k} = (0,0)\), then \(k\) would need to share a factor of both \(m\) and \(n\), which would contradict coprimality.
+\end{example}
 
 
+\section{Isomorphism theorems}
+\label{sec:group-theory:isomorphism-theorems}
+
+Arguably, the most important type of subgroup is the normal subgroup.
+
+\begin{definition}
+  A subgroup \(H \leq G\) is said to be \indx{normal} if \(gH = Hg\) for all \(g \in G\).
+  %
+  We denote this by \(H \triangleleft G\).
+\end{definition}
+
+\begin{lemma}
+ \label{lem:group-theory:normal-subgroup-criterion}
+  A subgroup \(H \leq G\) is normal if and only if for all \(g \in G\), \(h \in H\), we have \(g^{-1}hg \in H\).
+\end{lemma}
+
+L\begin{proof}
+  Suppose that \(H \triangleleft G\) is a normal subgroup and let \(g \in G\) and \(h \in H\).
+  %
+  Since \(gH = Hg\) if and only if \(H = g^{-1}Hg\) and \(g^{-1}hg \in  g^{-1}Hg\), we have \(g^{-1}Hg \in H\), as required.
+
+  Now, assuming that \(g^{-1}hg \in H\) for all \(g \in G\), \(h \in H\), we have that \(g^{-1} H g \subset H\). However, as \(H = g^{-1}gHg^{-1}g \subset g^{-1}Hg\), we must have that \(H = g^{-1}Hg\) and so \(gH = Hg\), proving that \(H\) is normal in \(G\).
+\end{proof}
+
+As left and right cosets are the same for a normal subgroup \(N \triangleleft G\), we typically just refer to them as ``cosets'', choosing to work with left cosets if necessary.
+
+\begin{definition}
+  \label{def:group-theory:quotient-group}
+  Let \(N \triangleleft G\) be a normal subgroup. The set of cosets is denoted \(G / N\) and has a canonical group structure associated with it, defined by \(gN * hN = (gh)N\) and \((gN)^{-1} \coloneqq (g^{-1})N\). Groups of this form are called \indx{quotient groups}.
+\end{definition}
+
+This group structure is well defined for normal subgroups, but not always for arbitrary subgroups.
+%
+To show that it is well defined, suppose \(g_{1}N = g_{2}N\) and \(h_{1}N = h_{2}N\).
+%
+We need to show that \(g_{1}h_{1}N = h_{1}h_{2}N\).
+%
+This follows by normality of \(N\):
+
+\[g_{1}h_{1} N = g_{1} h_{2}N =g_{1}Nh_{2} = g_{2}Nh_{2} = g_{2}h_{2}N.\]
+
+Inverses is well defined, also by normality, for if \(g_{1}N = g_{2}N\), then we have the following equations:
+\[(g_{1}N)^{-1}g^{-1}_{2} = g_{1}^{-1}Ng^{-1}_{2} = g_{1}^{-1}g_{2}N = g^{-1}_{1}g_{1}N = N.\]
+
+Hence, \((g^{-1}_{1}N) = (g_{1}N)^{-1} = Ng_{2} = (g^{-1}_{2}N)\), as required.
 
 
+\begin{theorem}
+  Let \(G\) be a group and \(N \leq G\) a subgroup.
+  %
+  Then, \(N \triangleleft G\) if and only if \(N\) is the kernel of some group homomorphism from \(G \to H\).
+\end{theorem}
+
+\begin{proof}
+  Suppose that \(N \triangleleft G\).
+  %
+  Then, there is a canonical function \(\phi: G \to G/N\) mapping \(g \mapsto gN\).
+  %
+  This function is a group homomorphism, as
+  \[\phi(gh) = ghN = gN * hN = \phi(g) * \phi(h). \]
+  %
+  It is clear that the kernel of this morphism is \(N\).
+
+  Now, supposing that \(N = \ker(\phi)\), for some \(\phi : G \to K\), Lemma~\ref{lem:group-theory:kernels-are-subgroups} shows that \(N \leq G\).
+  %
+  If \(g \in G\) and \(h \in N\), then
+  \[\phi(g^{-1}h g) = \phi(g^{-1}) \phi(h) \phi(g) = \phi(g^{-1})\phi(g) = e,\]
+  and so \(g^{-1}h g \in N\), which proves that \(N \triangleleft G\) by Lemma~\ref{lem:group-theory:normal-subgroup-criterion}.
+\end{proof}
 
 
+\subsection{First Isomorphism Theorem}
+\label{sec:group-theory:first-isom-theorem}
 
+Quotient groups have the a universal property.
 
+\begin{theorem}
+\label{thm:group-theory:universal-property-of-quotient-groups}
+  Let \(N \triangleleft G\) be a normal subgroup, and \(f : G \to H\) be a group homomorphism with \(N \subset \ker(f)\).
+  %
+  Then there is a unique group homomorphism \(\hat f : G/N \to H\) that makes the following diagram commute:
+  \begin{center}
+    \begin{tikzcd}
+      G \arrow[r, "\phi"] \arrow[rd, "f"'] & G/N \arrow[d, "\hat f", dashed] \\
+      & H
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
 
+\begin{proof}
+  The map \(\hat f: G/N \to H\) is defined by \(gN \mapsto f(g)N\).
+  %
+  It is a well defined function as if \(g_{1}N = g_{2}N\), \(g_{1}g^{-1}_{2} \in N \subset \ker(f)\), and so \(f(g_{1})=f(g_{2})\) giving the desired result that \(f(g_{1})N = f(g_{2})N\).
+  %
+  It is a group homomorphism as \(f\) is a group homomorphism.
+  %
+  If there was another map \(k:G/N \to H\) that made this diagram commute, then \(k(gN) = (k \circ \phi)(g) = f(g)\), and so \(k(gN) = f(g) = \bar f (gN)\), proving that \(k = \bar f\).
+  \todo{Add note about categorical coequaliser here}
+\end{proof}
 
+This result essentially gives us the First Isomorphism Theorem for groups.
+
+\begin{theorem}[First Isomorphism Theorem]
+  \label{thm:group-theory:first-isomorphism-theorem}
+  Let \(\theta : G \to H\) be a group homomorphism.
+  %
+  Then, \(N \coloneqq \ker\phi\) is a normal subgroup of \(G\), \(\Im \theta\) is a subgroup of \(H\) and there is an isomorphism
+  \[\bar \theta : G / N \to \Im \theta.\]
+
+  In particular, if \(\theta\) is surjective, then \(G / \ker(\theta) \iso H\).
+\end{theorem}
+
+\begin{proof}
+  The map \(\bar \theta\) is given by Theorem~\ref{thm:group-theory:universal-property-of-quotient-groups}.
+  %
+  It is clear that the image of \(\bar\theta\) is \(\Im \theta\), since \(\theta(g) = \bar \theta(gN)\), and if \(\bar\theta\) is surjective, it witnesses an isomorphism \(G/\ker(\theta) \iso \Im \theta\).
+\end{proof}
+
+\begin{example}
+  There is a surjective group homomorphism \(\exp : (\C, +) \to (\C^{*}, \times)\).
+  %
+  The kernel of \(\exp\) is the set \(N = \{2k\pi i \mid \k \in \Z\}\), so \(\C^{*} \iso \C/N\).
+\end{example}
+
+\subsection{The Second and Third Isomorphism Theorems and the Correspondence Theorem}\label{sec:second-and-third-isomorphism-theorems-and-correspondence-theorem}
 
 
 
