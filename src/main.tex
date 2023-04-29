@@ -1,3 +1,4 @@
+% * Preamble
 \documentclass[12pt]{report}
 \usepackage[a4paper]{geometry}
 \usepackage{fancyhdr}
@@ -43,7 +44,11 @@
 \tableofcontents
 
 
+
+% * Algebra
 \part{Algebra}
+
+% ** Group Theory
 \chapter{Group Theory}\label{cha:intr-group-theory}
 Group theory is the study of symmetries, or more abstractly, automorphisms.
 %
@@ -59,6 +64,8 @@ It was followed up by a fourth year course ``Group Theory''.
 This chapter is based off the notes~\cite{wemyss2015grouptheory} and~\cite{lanini2017grouptheory}.
 
 
+
+% *** Groups and Symmetries
 \section{Groups and Symmetries}
 The study of any area of pure mathematics needs to be well motivated.
 %
@@ -142,6 +149,8 @@ This becomes quite tangible when applied to concrete objects such as graphs, who
 \end{note}
 
 
+
+% *** Groups and examples
 \section{Groups and examples}
 
 \begin{definition}\label{def:intro-to-group-theory:group}
@@ -157,6 +166,7 @@ This becomes quite tangible when applied to concrete objects such as graphs, who
 
   The \indx{order} of an element \(g \in G\) is the smallest natural number \(n\) such that \(g^{n} \coloneqq \underbrace{g * g * \ldots * g}_{n} = e\).
 \end{definition}
+
 
 We may sometimes explicitly denote the group and its operation, when it is necessary, by \((G, *)\).
 
@@ -211,6 +221,8 @@ We may sometimes explicitly denote the group and its operation, when it is neces
 \todo{add more examples}
 
 
+
+% *** Subgroups and Lagrange's Theorem
 \section{Subgroups and Lagrange's Theorem}
 
 \begin{definition}\label{def:group-theory:subgroup}
@@ -404,6 +416,8 @@ Wilson's Theorem also follows as an application of Lagrange's Theorem.
 \end{proof}
 
 
+
+% *** Group homomorphisms
 \section{Group homomorphisms}
 \label{sec:group-theory:group-homomorphisms}
 
@@ -578,6 +592,8 @@ Given a group homomorphism, we can always extract a new group from it.
 \end{example}
 
 
+
+% *** Isomorphism theorems
 \section{Isomorphism theorems}
 \label{sec:group-theory:isomorphism-theorems}
 
@@ -649,13 +665,13 @@ Hence, \((g^{-1}_{1}N) = (g_{1}N)^{-1} = Ng_{2} = (g^{-1}_{2}N)\), as required.
 \end{proof}
 
 
-\subsection{First Isomorphism Theorem}
-\label{sec:group-theory:first-isom-theorem}
+
+% **** First Isomorphism Theorem
+\subsection{First Isomorphism Theorem}\label{sec:group-theory:first-isom-theorem}
 
 Quotient groups have the a universal property.
 
-\begin{theorem}
-\label{thm:group-theory:universal-property-of-quotient-groups}
+\begin{theorem}\label{thm:group-theory:universal-property-of-quotient-groups}
   Let \(N \triangleleft G\) be a normal subgroup, and \(f : G \to H\) be a group homomorphism with \(N \subset \ker(f)\).
   %
   Then there is a unique group homomorphism \(\hat f : G/N \to H\) that makes the following diagram commute:
@@ -699,57 +715,247 @@ This result essentially gives us the First Isomorphism Theorem for groups.
 \begin{example}
   There is a surjective group homomorphism \(\exp : (\C, +) \to (\C^{*}, \times)\).
   %
-  The kernel of \(\exp\) is the set \(N = \{2k\pi i \mid \k \in \Z\}\), so \(\C^{*} \iso \C/N\).
+  The kernel of \(\exp\) is the set \(N = \{2k\pi i \mid k \in \Z\}\), so \(\C^{*} \iso \C/N\).
 \end{example}
 
+
+% **** The Second and Third Isomorphism Theorems and the Correspondence Theorem
 \subsection{The Second and Third Isomorphism Theorems and the Correspondence Theorem}\label{sec:second-and-third-isomorphism-theorems-and-correspondence-theorem}
 
+The second and third isomorphism theorems gives us information about relating the subgroups structure of \(G /N\) to the subgroup structure of \(G\).
+
+\begin{proposition}\label{prp:group-theory:preimage-of-subgroups-of-G/N}
+  Let \(G\) be a group and let \(N \triangleleft G\).
+  %
+  Let \(\theta: G \to G/N\) be the canonical morphism from Theorem~\ref{thm:group-theory:universal-property-of-quotient-groups}, and let \(K \leq G / N\).
+
+  \begin{enumerate}
+  \item
+    \(\theta^{-1}(K) \leq G\), with \(N \subset \theta^{-1}(K)\).
+  \item
+    \(\theta^{-1}(K) \triangleleft G\) if and only if \(K \triangleleft G/N\).
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  \begin{enumerate}
+  \item
+    It's clear that the preimage is a subset of \(G\) that contains \(e\).
+    %
+    Let \(g, h \in \theta^{-1}(K)\).
+    %
+    We see that \(\theta(gh^{-1}) = \theta(g)\theta(h)^{-1}\), which is in \(K\) since it is a subgroup.
+    %
+    Hence by Lemma~\ref{lem:group-theory:subgroup-criterion}, it is a subgroup of \(G\).
+
+    \item
+      Supposing that \(\theta^{-1}(K) \triangleleft G\) and let \(gN \in G/N\) and \(kN \in K\).
+      %
+      We see that \(k \in \theta^{-1}(K)\), and as the preimage is normal in \(G\), \(g^{-1}kg \in \theta^{-1}K\).
+      %
+      Therefore, \(g^{-1}kgN = (g^{-1}N)*(kN)*(gN) \in K\), and so \(K \triangleleft G/N\).
+
+      Now, assume that \(K \triangleleft G/N\) and let \(g \in G\), \(h \in \theta^{-1}(K)\).
+      %
+      \(g^{-1}hgN = (g^{-1}N)*(hN)*(gN) \in K\) by normality of \(K\) and \(hN \in K\).
+      %
+      Therefore, \(\theta^{-1}(K) \triangle G\), as required.
+      %
+      This completes the proof.
+
+  \end{enumerate}
+\end{proof}
+
+\begin{proposition}\label{prp:group-theory:normal-subgroups-pullback}
+  Let \(N \triangleleft G\) and \(\theta : G \to G/N\) as above. If \(N \leq H \leq G\), then \(H = \theta^{-1}\theta(H)\).
+  %
+  That is, all subgroups of \(G\) that contain \(N\) are pulled back from subgroups of \(G/N\).
+\end{proposition}
+
+\begin{proof}
+  It is clear that, \(H \subset \theta^{-1}\theta (H)\).
+  %
+  If \(g \in \theta^{-1}\theta(H)\), then \(\theta(g) \in \theta(H)\) and there must exists \(h \in H\) such that \(\theta(g) = \theta(h)\).
+  %
+  This means that \(\theta(g h^{-1}) = e_{G/N}\) and so \(g h^{-1} \in N \subset H\).
+  %
+  Therefore, \(g = h(h^{-1}g) \in H\) and so \(H = \theta^{-1}\theta(H)\), as required.
+\end{proof}
+
+
+
+These two propositions allow us to prove the following:
+
+\begin{theorem}[The Correspondence Theorem]
+  \label{thm:group-theory:the-correspondence-theorem}
+  Let \(G\) be a group with \(N \triangleleft G\) and \(\theta: G \to G/N\) the canonical morphism.
+  %
+  The map \(H \mapsto \theta(H)\) is a bijection between subgroups of \(G\) containing \(N\) and subgroups of \(G/N\).
+  %
+  Under this bijection, normal subgroups match with normal subgroups; further, if \(N \subset A,B\) are subgroups of \(G\), then \(\theta(A) \subset \theta(B)\) if and only if \(A \subseteq B\).
+\end{theorem}
+
+\begin{proof}
+  Injectivity of the function follows immediately from Proposition~\ref{prp:group-theory:normal-subgroups-pullback}.
+  %
+  Part 1 of Proposition~\ref{prp:group-theory:preimage-of-subgroups-of-G/N} shows that the function is surjective (since \(\theta\theta^{1}K = K\) and \(N \subset \theta^{-1}(K)\)).
+  %
+  Part 2 of Proposition~\ref{prp:group-theory:normal-subgroups-pullback} shows us that normal subgroups match up with normal subgroups.
+  %
+  Now, supposing that \(N \leq A \leq B \leq G\), it is clear that \(A/N \subset B/N\).
+  %
+  Suppose that \(A/N \subset B/N\) and let \(a \in A\).
+  %
+  There must be \(b \in B\) such that \(aN = bN\), and so \(ab^{-1} \in N\).
+  %
+  This means \(a = bn \in B\), for some \(n \in N\).
+  %
+  Hence, \(a \in B\) and \(A \subseteq B\).
+\end{proof}
+
+% \begin{example}
+%   We can determine all of the subgroups of \(Z/12Z\) by finding all of the subgroups of \(Z\) that contain \(12Z\).
+%   %
+%   These are \(Z, 2Z, 3Z\) and \(4Z\).
+% \end{example}
+This leads to the Third Isomorphism Theorem.
+
+\begin{theorem}[The Third Isomorphism Theorem]
+  \label{thm:group-theory:the-third-isomorphism-theorem}
+  If \(N \leq H \leq G\), with \(N, H \triangleleft G\), then
+  \[(G/N)/(H/N) \iso G/H.\]
+\end{theorem}
+
+\begin{proof}
+  We have the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      G \arrow[r, "\can_N"] \arrow[rd, "\can_H"'] & G/N \arrow[d, "\pi", dashed] \\
+      & G/H
+    \end{tikzcd}
+  \end{center}
+
+  Since \(N \subset H\), \(N \leq \ker(\can_{H})\) and Theorem~\ref{thm:group-theory:universal-property-of-quotient-groups} gives us the existence of \(\pi\).
+  %
+  Since \(\can_{H}\) is surjective, \(\pi\) is also surjective.
+  %
+  We now show that \(\ker(\pi) = H/N\), and use Theorem~\ref{thm:group-theory:universal-property-of-quotient-groups} to deduce the result.
+  %
+  Let \(hN \in H/N\).
+  %
+  Then, \(\pi(hN) = \can_{H}(h) = e\), so \(hN \in \ker(\pi)\).
+  %
+  Let \(gN \in \ker(\pi)\).
+  %
+  Then, \(e = \pi(gN) = \can_{H}(g)\), so \(g \in H\) which means that \(gN \in H/N\).
+  %
+  This shows that \(H/N = \ker(\pi)\) and so \((G/N) / (H/N) \iso G/H\).
+\end{proof}
 
 
 
 
 
-
-
+% ** Introduction to Number Theory
 \chapter{Introduction to Number Theory}\label{cha:intr-numb-theory}
+
+% ** Honours Algebra
 \chapter{Honours Algebra}\label{cha:honours-algebra}
+
+% ** Commutative Algebra
 \chapter{Commutative Algebra}\label{cha:commutative-algebra}
+
+% ** Galois Theory
 \chapter{Galois Theory}\label{cha:galois-theory}
+
+% ** Lie Algebras
 \chapter{Lie Algebras}\label{cha:lie-algebras}
 
 
 
+
+% * Analysis and calculus
 \part{Analysis and calculus}
+
+% ** Calculus
 \chapter{Calculus}\label{cha:calculus}
+
+% ** Introduction to Real Analysis}
 \chapter{Introduction to Real Analysis}\label{cha:intr-real-analys}
+
+% ** Honours Analysis
 \chapter{Honours Analysis}\label{cha:honours-analysis}
+
+% ** Complex Variables
 \chapter{Complex Variables}\label{cha:complex-variables}
+
+% ** Honours Differential Equations
 \chapter{Honours Differential Equations}\label{cha:hono-diff-equat}
+
+% ** Essentials in Analysis and Probability
 \chapter{Essentials in Analysis and Probability\label{cha:essent-analys-prob}}
+
+% ** Linear Analysis}\label{cha:linear-analysis
 \chapter{Linear Analysis}\label{cha:linear-analysis}
+
+% ** Fourier Analysis}\label{cha:fourier-analysis
 \chapter{Fourier Analysis}\label{cha:fourier-analysis}
+
+% ** Quantum Information}\label{cha:quantum-information
 \chapter{Quantum Information}\label{cha:quantum-information}
+
+% ** Variational Calculus}\label{cha:variational-calculus
 \chapter{Variational Calculus}\label{cha:variational-calculus}
 
+
+% * Combinatorics, probability and statistics
 \part{Combinatorics, probability and statistics}
+
+% ** Probability with Applications}\label{cha:prob-with-appl
 \chapter{Probability with Applications}\label{cha:prob-with-appl}
+
+% ** Statistics}\label{cha:statistics
 \chapter{Statistics}\label{cha:statistics}
+
+% ** Combinatorics and Graph Theory}\label{cha:comb-graph-theory
 \chapter{Combinatorics and Graph Theory}\label{cha:comb-graph-theory}
 
+
+% * Topology and Geometry
 \part{Topology and Geometry}
+
+% ** Geometry}\label{cha:geometry
 \chapter{Geometry}\label{cha:geometry}
+
+% ** General Topology}\label{cha:general-topology
 \chapter{General Topology}\label{cha:general-topology}
+
+% ** Algebraic Topology}\label{cha:algebraic-topology
 \chapter{Algebraic Topology}\label{cha:algebraic-topology}
+
+% ** Algebraic Geometry}\label{cha:algebraic-geometry
 \chapter{Algebraic Geometry}\label{cha:algebraic-geometry}
+
+% ** Complex Algebraic Curves}\label{cha:compl-algebr-curv
 \chapter{Complex Algebraic Curves}\label{cha:compl-algebr-curv}
 
 
 
 
+
+% * Category Theory and its Applications}\label{part:category-theory-its
 \part{Category Theory and its Applications}\label{part:category-theory-its}
+
+% ** Category Theory}\label{cha:category-theory
 \chapter{Category Theory}\label{cha:category-theory}
+
+% ** Homotopy Theory}\label{cha:homotopy-theory
 \chapter{Homotopy Theory}\label{cha:homotopy-theory}
+
+% ** Higher Category Theory}\label{cha:high-categ-theory
 \chapter{Higher Category Theory}\label{cha:high-categ-theory}
+
+% ** Multidimensional Category Theory}\label{cha:mult-categ-theory
 \chapter{Multidimensional Category Theory}\label{cha:mult-categ-theory}
 
 \printindex
