@@ -22,6 +22,7 @@
 % \usepackage{fontspec}
 % \setmainfont{Gill Sans Light}
 
+
 \usepackage[citestyle=alphabetic,
             bibstyle=authortitle,
             backend=biber]{biblatex}
@@ -33,6 +34,7 @@
 \makeindex
 
 \newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\lcm}{\operatorname{lcm}}
 
 
 \title{Mathematics}
@@ -610,7 +612,7 @@ Arguably, the most important type of subgroup is the normal subgroup.
   A subgroup \(H \leq G\) is normal if and only if for all \(g \in G\), \(h \in H\), we have \(g^{-1}hg \in H\).
 \end{lemma}
 
-L\begin{proof}
+\begin{proof}
   Suppose that \(H \triangleleft G\) is a normal subgroup and let \(g \in G\) and \(h \in H\).
   %
   Since \(gH = Hg\) if and only if \(H = g^{-1}Hg\) and \(g^{-1}hg \in  g^{-1}Hg\), we have \(g^{-1}Hg \in H\), as required.
@@ -813,12 +815,23 @@ These two propositions allow us to prove the following:
   Hence, \(a \in B\) and \(A \subseteq B\).
 \end{proof}
 
-% \begin{example}
-%   We can determine all of the subgroups of \(Z/12Z\) by finding all of the subgroups of \(Z\) that contain \(12Z\).
-%   %
-%   These are \(Z, 2Z, 3Z\) and \(4Z\).
-% \end{example}
-This leads to the Third Isomorphism Theorem.
+\begin{example}
+  Since \(\Z\) is abelian, all of its subgroups are normal.
+  %
+  We can determine all of the subgroups of \(\Z/12Z\) by finding all of the subgroups of \(\Z\) that contain \(12\Z\).
+  %
+  These are \(\Z, 2\Z, 3\Z\) and \(4\Z\).
+  %
+  Under the correspondence, they give the subgroups \(12\Z\), \(2\Z / 12\Z\), \(3\Z / 12\Z\) and \(4\Z / 12\Z\).
+  %
+  There is a surjective group homomorphism \(2\Z / 12\Z \to \Z/6\Z\) mapping \(2n(12\Z) \mapsto n(6Z)\).
+  %
+  It is well defined as if \(2m(12\Z) = 2n(12\Z)\) then \(m(6\Z) = n(6\Z)\) and it is easy to show that it is a group homomorphism.
+  %
+  Theorem~\ref{thm:group-theory:first-isomorphism-theorem} gives us that \((2\Z) / (12\Z) \iso \Z/6\Z\), and likewise, \((m\Z) / (n\Z) \iso \Z/(\frac n m)\Z\).
+\end{example}
+
+The Third Isomorphism Theorem tells us how to work with groups of the form \((G/N)/(H/N)\).
 
 \begin{theorem}[The Third Isomorphism Theorem]
   \label{thm:group-theory:the-third-isomorphism-theorem}
@@ -852,9 +865,82 @@ This leads to the Third Isomorphism Theorem.
   This shows that \(H/N = \ker(\pi)\) and so \((G/N) / (H/N) \iso G/H\).
 \end{proof}
 
+What can we say about subgroups of \(H \leq G\) that don't contain the normal subgroup \(N\)?
+
+\begin{theorem}[The Second Isomorphism Theorem]
+ \label{thm:group-theory:second-isomorphism-theorem}
+ Let \(N \triangleleft G\) be a normal subgroup of a group \(G\) and  \(H \leq G\) a subgroup of \(G\).
+ %
+ Then, the following hold:
+ \begin{enumerate}
+ \item
+   \(HN \coloneqq \{hn \mid h \in H, n \in N\}\) is a subgroup of \(G\);
+ \item
+   \(N \triangleleft HN\);
+ \item
+   \(H \cap N \triangleleft H\);
+ \item
+   There exists an isomorphism
+   \[HN/N \iso H/(H\cap N).\]
+ \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \begin{enumerate}
+  \item
+    It is clear that \(e \in HN\).
+    %
+    Let \(h_{1}, h_{2} \in H\) and \(n_{1}, n_{2} \in N\).
+    %
+    Then, \(h_{1}n_{1}(h_{2}n_{2})^{-1} = h_{1}n_{1}n_{2}^{-1}h_{2}^{-1}\).
+    %
+    Since, \(N \triangleleft G\), \(n_{1}n_{2}^{-1}h_{2}^{-1} \in Nh_{2}^{-1} = h_{2}^{-1}N\), \(n_{1}n_{2}^{-1}h_{2}^{-1} = h_{2}^{-1}n_{3}\), for some \(n_{3} \in N\), we can deduce the following:
+
+    \[(h_{1}n_{1})(h_{2}n_{2})^{-1} = h_{1}n_{1}h_{2}^{-1}h_{2}^{-1} = h_{1}h_{2}^{-1}n_{3} \in HN,\]
+    and so \(HN \leq G\).
+
+    \item
+      \(N\) is normal in \(HN\) since all elements of \(HN\) are also elements of \(G\).
+
+    \item
+      Let \(a \in H \cap N\).
+      %
+      Then, for all \(h \in H\), \(hah^{-1} \in H\).
+      %
+      Since \(N \triangleleft G\) and \(H \subset G\), \(hah^{-1} \in N\), and so \(hah^{-1} \in H \cap N\), which proves \(H\cap N \triangleleft H\).
+    \item
+     By the Correspondence Theorem (Theorem~\ref{thm:group-theory:the-correspondence-theorem}) and \(N \subset HN\), we have a group homomorphism \(\can_{N}|_{H}: H \to H/N\).
+     %
+     The kernel of this map is the set \(\{n \in H \mid n \in N\} = N \cap H\), and the image is \(HN/N\) (follows from \(hN = heN \in HN/N\) and \(hnN = hN\)).
+     %
+     Hence, the First Isomorphism Theorem (Theorem~\ref{thm:group-theory:first-isomorphism-theorem}) gives an isomorphism
+     \[H/(H\cap N) \iso HN/N.\]
+  \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+  Let \(a,b \in \Z\).
+  %
+  Then, \(ab = \gcd(a,b)\lcm(a,b)\).
+\end{corollary}
+
+\begin{proof}
+  We take the function \(\can_{b}|_{a\Z} : a\Z \to Z / b\Z\).
+  %
+  The first isomorphism theorem gives
+  \[\can_{b}|_{a\Z}(a\Z) \iso a\Z / (a\Z \cap b\Z) \iso a\Z / \lcm(a,b)\Z.\]
+
+  Applying the Second Isomorphism Theorem (Theorem~\ref{thm:group-theory:second-isomorphism-theorem}) to the middle term in the isomorphism chain, we get that
+  \[a\Z / a\Z \cap b\Z \iso a\Z b\Z / a\Z \iso (a\Z + b\Z)\Z / b\Z \iso \gcd(a,b) \Z / b\Z.\]
+  This gives an isomorphism
+  \[a\Z/ \lcm(a,b)\Z \iso \gcd(a,b)\Z/ b\Z.\]
+
+  The left hand side has cardinality \(\lcm(a,b)/a\), while the right hand side's cardinality is \(b/\gcd(a,b)\).
+  %
+  This means \(ab = \gcd(a,b)\lcm(a,b)\), as required.
 
 
-
+\end{proof}
 
 % ** Introduction to Number Theory
 \chapter{Introduction to Number Theory}\label{cha:intr-numb-theory}
