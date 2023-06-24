@@ -28,9 +28,12 @@
             backend=biber]{biblatex}
 \addbibresource{bibliography.bib}
 
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\CL}{\operatorname{CL}}
 
 \newenvironment{note}{\begin{bluebox}}{\end{bluebox}}
 \newenvironment{warning}{\begin{redbox}}{\end{redbox}}
+\newenvironment{categorybox}{\begin{bluebox}}{\end{bluebox}}
 \makeindex
 
 \newcommand{\Aut}{\operatorname{Aut}}
@@ -67,7 +70,6 @@ This chapter is based off the notes~\cite{wemyss2015grouptheory} and~\cite{lanin
 
 
 
-% *** Groups and Symmetries
 \section{Groups and Symmetries}
 The study of any area of pure mathematics needs to be well motivated.
 %
@@ -315,7 +317,7 @@ An important construct from a subgroup \(H \leq G\) is that of the left and righ
 
 We reach the titular theorem of this section.
 
-\begin{theorem}[Lagrange's Theorem]
+\begin{theorem}[Lagrange's Theorem]\label{thm:group-theory:lagranges-theorem}
   Let \(H\) be a subgroup of a finite group \(G\). Then
   \[|G| = [G : H]|H|.\]
 \end{theorem}
@@ -941,6 +943,207 @@ What can we say about subgroups of \(H \leq G\) that don't contain the normal su
 
 
 \end{proof}
+
+
+
+% *** Group presentations
+\section{Group presentations}
+\label{sec:group-theory:group-presentations}
+
+Every group has a \textit{presentation} which describes it wholly.
+%
+It is formed by taking a free group and quotienting selected elements to the identity.
+
+\begin{definition}\label{def:group-theory:free-group}
+  The \indx{free group} on generators \(x_{1}, x_{2}, \ldots, x_{n}\) is the group whose elements are words in the symbols \(x_{1}, \ldots, x_{m},x^{-1}, \ldots, x^{-1}_{m}\), subject to the group axioms and all logical consequences.
+  %
+  The group operation is concatenation.
+  %
+  It is written as \(\langle x_{1}, \ldots, x_{m} \rangle\).
+\end{definition}
+
+\begin{definition}
+ \label{def:group-theory:generated-by-subject-to-relations}
+ Let \(r_{1}, \ldots, r_{n} \in \langle x_{1}, \ldots, x_{2} \rangle\).
+ %
+ The group \indx{generated} by \(x_{1}, \ldots, x_{m}\) subject to the relations \(r_{1}, \ldots, r_{n}\) is the group with generators \(x_{1}, \ldots, x_{m}\), subject to the group axioms, the rules \(r_{1} = r_{2}= \ldots = r_{n} = e\) and all logical consequences.
+ %
+ We write this group \(\langle x_{1}, \ldots, x_{m} \mid r_{1}, \ldots, r_{n} \rangle\) and call this a presentation of the group.
+\end{definition}
+
+\begin{example}
+  Let \(D = \langle x \mid x^{3} = x^{2} \rangle\).
+  %
+  This group must then satisfy \(x=e\) and so this is a presentation the free group.
+\end{example}
+
+\begin{theorem}
+  \label{thm:group-theory:universal-property-of-free-groups}
+  Let \(G\) be a group and \(S\) an arbitrary set.
+  %
+  There is a bijection between the sets of group homomorphisms \(\langle S \rangle \to G\) and functions \(G \to S\).
+\end{theorem}
+
+
+
+\section{Sylow theory}
+The Sylow Theorems act as a close converse to Lagrange's theorem. The converse to Lagrange's theorem does not hold in general.
+
+\begin{example}
+  The alternating group \(A_{4}\) has order \(12\), but has no subgroup of order 6.
+\end{example}
+
+The best ``partial'' converse is we have is Cauchy's Theorem:
+
+\begin{theorem}[Cauchy's Theorem]\label{thm:group-theory:cauchys-theorem}
+  If \(p\) is a prime that divides the order of \(G\), then \(G\) has a subgroup of order \(p\).
+\end{theorem}
+
+We need to introduce some tools before we can prove this result.
+
+\subsection{Group actions}
+
+\begin{definition}\label{def:group-theory:group-action}
+  Let \(G\) be a group and \(X\) a set. A (left) \indx{\(G\)-action} (or \indx{\(G\)-set}) on \(X\) is a function
+
+  \[\_ \cdot \_ :  G \times X \to X,\]
+
+  such that the following hold:
+
+  \begin{enumerate}
+    \item The identity acts trivially: \(e \cdot x = x\), for all \(x \in X\);
+    \item Actions are associative: \(g \cdot (h \cdot x) = (gh \cdot x)\).
+  \end{enumerate}
+
+  A morphism between two group actions on sets \(X\) and \(Y\) is a function \(f: X \to Y\) such that \(f(g\cdot x) = g \cdot (f(x))\).
+\end{definition}
+
+\begin{categorybox}
+  A left group action is equivalently a functor \(G \to \Set\). The functor category \([G, \Set]\) is isomorphic to the category of \(G\)-sets.
+\end{categorybox}
+
+Any \(G\)-set gives rise to two important constructions.
+
+\begin{definition}\label{def:group-theory:orbit}
+  The \indx{orbit} of a group action is a subset of \(X\) defined as:
+  \[G \cdot x \coloneqq \{g \cdot x \mid g \in G\}.\]
+\end{definition}
+
+\begin{definition}\label{def:group-theory:stabilizer}
+  The \indx{stabilizer} of \(x \in X\) under a group action is the subgroup of \(G\)
+
+  \[\Stab_{G}(x) \coloneqq \{ g \in G \mid g \cdot x = x \}.\]
+\end{definition}
+
+\begin{lemma}\label{lem:group-theory:stabilizer-is-subgroup}
+  Let \(G\) be a group that acts on a set \(X\). Then, for all \(x \in X\), the stabilizer of the group action is a subgroup of \(G\).
+\end{lemma}
+
+\begin{proof}
+  Clearly \(e \in \Stab_{G}(x)\). If \(g, h \in \Stab_{G}(x)\), then
+  \begin{align*}
+    gh^{-1} \cdot x = gh^{-1} \cdot (h \cdot x) = g \cdot x = x.
+  \end{align*}
+
+  Therefore, \(gh^{-1} \in \Stab_{G}(x)\) and it is a subgroup of \(G\).
+\end{proof}
+
+\begin{example}
+  Let \(k\) be a field and let \(n\) be a positive integer. Defining \(G = \GL_{n}(k)\) and \(X = k^{n}\), \(G\) acts on \(X\) by matrix multiplication.
+\end{example}
+
+\begin{example}
+  Let \(n\) be a positive integer and let \(G = \S_{n}\), the \(n\)th symmetric group. Let \(X = \{1, \ldots, n\}\). Then \(G\) acts on \(X\) by \(\sigma \cdot i = \sigma(i)\).
+\end{example}
+
+
+\begin{lemma}\label{lem:group-theory:orbits-partition}
+  Let \(G\) act on \(X\). Then,
+  \begin{enumerate}
+    \item The action induces an equivalence relation \(\sim\) on \(X\) defined by: \(x \sim y\) if and only if there exists \(g \in G\) with \(g \cdot x = y\);
+    \item The equivalence classes of this relation are the orbits.
+    \item The distinct orbits in \(X\) form a partition of \(X\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  It is routine to check that that \(\sim\) is an equivalence relation and that the orbits are the equivalence classes.
+\end{proof}
+
+The fundamental theorem about group actions is the following:
+
+\begin{theorem}[Orbit-Stabilizer Theorem]\label{thm:group-theory:orbit-stabilizer}
+  Let \(G\) be a finite group acting on a set \(X\) and let \(x \in X\). Then
+  \[|G| = |\Stab_{G}(x)| |G \cdot x|.\]
+\end{theorem}
+
+\begin{proof}
+  This follows from~\nameref{thm:group-theory:lagranges-theorem}. By Lemma~\ref{lem:group-theory:stabilizer-is-subgroup}, we just need to show that each of the stabilizer's cosets correspond to a unique element of \(G \cdot x\), and visa versa. The maps we construct are \(g \cdot x \mapsto g\Stab_{G}(x)\) and \(g\Stab_{G}(x) \mapsto g\cdot x\). These maps are well defined and inverse to each other, so there is a bijection between the cosets of the stabilizer and \(G \cdot x\). Hence, \(|G| = |\Stab_{G}(x)| |G \cdot x|\).
+\end{proof}
+
+\begin{example}
+  Any group \(G\) can act on its underlying set in two different ways. The first is by multiplication, with \(g \dot h \coloneqq gh\), and the second is by conjugation: \(g \cdot h \coloneqq ghg^{-1}\).
+\end{example}
+
+\begin{definition}\label{def:group-theory:centralizer}
+  Let \(G\) be a group and let \(a \in G\). The \indx{centralizer} \(C_{G}(a)\) is the Stabilizer \(\Stab_{}(a)\) where \(G\) acts on itself by conjugation. It is precisely the set of elements in \(G\) that commute with \(a\): \(\{g \in G \mid ga = ag\}\).
+\end{definition}
+
+\begin{definition}\label{def:group-theory:conjugacy-class}
+  Let \(G\) be a group and let \(a \in G\). The \indx{conjugacy class of \(a\)} is the orbit of \(a\) where \(G\) acts on itself by conjugation. We denote it by \(\Cl(a) \coloneqq \{gag^{-1} \mid g \in G\}\).
+\end{definition}
+
+\begin{corollary}\label{cor:group-theory:centralizer-conjugacy-classes-divide-G}
+  Let \(G\) be a finite group. For any \(a \in G\), we have
+  \[|G| = |C_{G}(a)| |\Cl(a)|,\]
+  and this both \(|C_{G}(a)|\) and \(|\Cl(a)|\) divide \(|G|\).
+\end{corollary}
+
+\begin{proof}
+  Immediate from the \nameref{thm:group-theory:orbit-stabilizer}.
+\end{proof}
+
+\begin{corollary}[Class Equation]\label{cor:group-theory:class-equation}
+  Let \(G\) be a finite group. Then, there exists elements \(a_{1}, \ldots, a_{n} \in G\) such that
+  \[|G| = \sum_{i=1}^{n} |\Cl(a_{i})|.\]
+\end{corollary}
+
+\begin{proof}
+  By Lemma~\ref{lem:group-theory:orbits-partition}, the orbits of the conjugacy group action partition \(G\). These orbits are the conjugacy classes, hence we get the above equation.
+\end{proof}
+
+
+\begin{definition}
+  Let \(p\) be a prime number. A \indx{\(p\)-group} is a group \(G\) such that each element has order a power of \(p\). If \(|G|\) is finite, then \(G\) is a \(p\)-group if and only if \(|G|\) is a power of \(p\), by~\nameref{thm:group-theory:cauchys-theorem}.
+\end{definition}
+
+
+\begin{theorem}\label{thm:group-theory:p-group-non-trivial-centre}
+  Let \(G\) be a nontrivial finite \(p\)-group. Then the centre \(Z(G) \neq \{e\}\).
+\end{theorem}
+
+\begin{proof}
+  Choose \(a_{1}, \ldots, a_{n} \in G\) such that \(|G| = \sum_{i=1}^{n} |\Cl(a_{i})|\). By Corollary~\ref{cor:group-theory:centralizer-conjugacy-classes-divide-G}, each term in the sum divides \(|G|\), and so for each \(a_{i}\), there exists \(r_{i}\) such that \(|\Cl(a_{i})| = p^{r_{i}}\).
+
+  Noticing that \(a \in Z(G)\) if and only if \(\Cl(a) = {a}\), we can split the sum from the class equation up as follows:
+  \[ p^{n} = |G| = \sum_{i=1}^{n} |\Cl(a_{i})| = \sum_{a_{i} \in Z(G)} |\Cl(a_{i})|+ \sum_{a_i \not\in Z(G)} |\Cl(a_{i})|= |Z(G)| + \sum_{a_i \not\in Z(G)}|\Cl(a_{i})|.\]
+
+  As \(|\Cl(a)| = 1\) if and only if \(a \in Z(G)\), each \(\Cl(a_{i})|\) must be a power of \(p\). Since \(p | p^{k}\), we must have \(p | |Z(G)|\) and so \(Z(G)\) is non-trivial.
+\end{proof}
+
+\begin{corollary}
+  If \(G\) is a group with \(|G| = p^{2}\), then \(G\) is abelian.
+\end{corollary}
+
+\begin{proof}
+  By Theorem~\ref{thm:group-theory:p-group-non-trivial-centre}, \(G\) has a nontrivial centre, and so \(|Z(G)|\) is equal to \(p\) or \(p^{2}\). If it equals \(p^{2}\), then \(G\) is abelian, so assume the order of the centre is \(p\). By The \nameref{cor:group-theory:class-equation}, there must be an element \(a \in G\) such that \(p^{2} = |Z(G)| + |\Cl(a)| = p + |\Cl(a)|\). Since \(|\Cl(a)|\) can't be 1 or \(p^{2}\), it must be equal to \(p\). But then \(p^{2} = 2p\), which only holds for \(p = 2\). However, every group of order \(4\) is abelian, hence \(Z(G) = G\). Therefore, \(G\) is abelian.
+\end{proof}
+
+\subsection{The Sylow Theorems}
+
+
+
+
 
 % ** Introduction to Number Theory
 \chapter{Introduction to Number Theory}\label{cha:intr-numb-theory}
