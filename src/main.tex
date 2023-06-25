@@ -12,7 +12,6 @@
 \fancyfoot[r]{}
 
 \usepackage{microtype}
-\usepackage{todonotes}
 
 \usepackage{math-packages}
 \usepackage{math-environments}
@@ -44,7 +43,6 @@
 \author{James Leslie}
 \date{\today}
 \begin{document}
-\listoftodos{}
 \maketitle
 \tableofcontents
 
@@ -222,7 +220,7 @@ We may sometimes explicitly denote the group and its operation, when it is neces
     \end{tikzpicture}
   \end{centre}
 \end{example}
-\todo{add more examples}
+% TODO add more examples
 
 
 
@@ -695,8 +693,18 @@ Quotient groups have the a universal property.
   It is a group homomorphism as \(f\) is a group homomorphism.
   %
   If there was another map \(k:G/N \to H\) that made this diagram commute, then \(k(gN) = (k \circ \phi)(g) = f(g)\), and so \(k(gN) = f(g) = \bar f (gN)\), proving that \(k = \bar f\).
-  \todo{Add note about categorical coequaliser here}
 \end{proof}
+
+\begin{categorybox}
+  This universal property can be seen categorically as saying the map \(\phi\) is a coequaliser in the category of groups of the diagram:
+
+  \begin{centre}
+    \begin{tikzcd}
+      N \arrow[r, "i", hook, shift left] \arrow[r, "0"', shift right] & G.
+    \end{tikzcd}
+  \end{centre}
+
+\end{categorybox}
 
 This result essentially gives us the First Isomorphism Theorem for groups.
 
@@ -1139,11 +1147,38 @@ The fundamental theorem about group actions is the following:
   By Theorem~\ref{thm:group-theory:p-group-non-trivial-centre}, \(G\) has a nontrivial centre, and so \(|Z(G)|\) is equal to \(p\) or \(p^{2}\). If it equals \(p^{2}\), then \(G\) is abelian, so assume the order of the centre is \(p\). By The \nameref{cor:group-theory:class-equation}, there must be an element \(a \in G\) such that \(p^{2} = |Z(G)| + |\Cl(a)| = p + |\Cl(a)|\). Since \(|\Cl(a)|\) can't be 1 or \(p^{2}\), it must be equal to \(p\). But then \(p^{2} = 2p\), which only holds for \(p = 2\). However, every group of order \(4\) is abelian, hence \(Z(G) = G\). Therefore, \(G\) is abelian.
 \end{proof}
 
+
 \subsection{The Sylow Theorems}
 
+\begin{definition}\label{def:group-theory:sylow-subgroup}
+  Let \(G\) be a finite group and let \(p\) be a prime number. A subgroup \(H \leq G\) is a \indx{\(p\)-subgroup} of \(G\) if it is a \(p\)-group. We say it is a \indx{Sylow \(p\)-subgroup} of \(G\) if its order is the highest power of \(p\) that divides the order of \(G\). We say that \(H\) is a \indx{Sylow subgroup} of \(G\) if its is a Sylow \(p\)-subgroup for some prime \(p\).
+\end{definition}
 
+If \(p\) does not divide \(|G|\), then the trivial subgroup is the unique Sylow \(p\)-subgroup of \(G\). When we want to exclude this case, we refer to \indx{nontrivial Sylow \(p\)-subgroups}.
 
+It's not obvious that nontrivial Sylow \(p\)-subgroups always exist. The first Sylow theorem guarantees that they do. The second Sylow Theorem says that for a given \(p\) all Sylow \(p\)-subgroups of \(G\) are conjugate, and the third gives information about the number of Sylow \(p\)-subgroups of \(G\).
 
+\begin{theorem}\label{thm:group-theory:sylow-1}
+  Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Then, there exists a subgroup of order \(p^{m}\); that is, there is exists a Sylow \(p\)-subgroup.
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}\label{thm:group-theory:sylow-2}
+  Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Suppose that \(P\) is a Sylow \(p\)-subgroup and \(H \leq G\) is any \(p\)-subgroup of \(G\). Then, there exists \(x \in G\) with \(H \subset xPx^{-1}\). In particular, any two Sylow \(p\)-subgroups of \(G\) are conjugate in \(G\).
+\end{theorem}
+
+\begin{theorem}\label{thm:group-theory:sylow-3}
+  Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Let \(n_{p}\) be the number of distinct Sylow \(p\)-subgroups of \(G\). Then, \(n_{p} | r\) and \(n_{p} = 1 \mod p\).
+\end{theorem}
+
+A useful lemma this often used in conjunction with the Sylow Theorems is the following:
+
+\begin{lemma}
+  Let \(G\) be a finite group and \(p\) a prime number. Then \(G\) has a Sylow \(p\)-subgroup that is normal in \(G\) if and only if \(n_{p} = 1\).
+\end{lemma}
 
 % ** Introduction to Number Theory
 \chapter{Introduction to Number Theory}\label{cha:intr-numb-theory}
