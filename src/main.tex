@@ -68,7 +68,7 @@ This chapter is based off the notes~\cite{wemyss2015grouptheory} and~\cite{lanin
 
 
 
-\section{Groups and Symmetries}
+\section{Groups and symmetries}
 The study of any area of pure mathematics needs to be well motivated.
 %
 Group theory is really the study of automorphisms.
@@ -266,6 +266,10 @@ We may sometimes explicitly denote the group and its operation, when it is neces
   The \indx{special linear group} \(SL(n, F)\) is the set of all \(n \times n\) matrices over \(F\) with determinant \(1\).
   %
   It is a subgroup of \(GL(n, F)\).
+\end{example}
+
+\begin{example}\label{ex:group-theory:centre-subgroup}
+  Let \(G\) be a group. The subset \(\{ g \in G \mid gh = hg, \forall h \in G\}\) is called the \indx{centre of \(G\)}, and is a subgroup of \(G\).
 \end{example}
 
 
@@ -619,6 +623,13 @@ Arguably, the most important type of subgroup is the normal subgroup.
 
   Now, assuming that \(g^{-1}hg \in H\) for all \(g \in G\), \(h \in H\), we have that \(g^{-1} H g \subset H\). However, as \(H = g^{-1}gHg^{-1}g \subset g^{-1}Hg\), we must have that \(H = g^{-1}Hg\) and so \(gH = Hg\), proving that \(H\) is normal in \(G\).
 \end{proof}
+
+\begin{example}[Examples of normal subgroups]\label{ex:group-theory:normal-subgroups}
+  \begin{enumerate}
+  \item For any group \(G\), the centre \(Z(G)\) is normal, since every \(g \in G\) commutes with all elements in \(Z(G)\).
+  \item Any subgroup of an abelian group is normal.
+  \end{enumerate}
+\end{example}
 
 As left and right cosets are the same for a normal subgroup \(N \triangleleft G\), we typically just refer to them as ``cosets'', choosing to work with left cosets if necessary.
 
@@ -1061,7 +1072,7 @@ Any \(G\)-set gives rise to two important constructions.
 \end{example}
 
 \begin{example}
-  Let \(n\) be a positive integer and let \(G = \S_{n}\), the \(n\)th symmetric group. Let \(X = \{1, \ldots, n\}\). Then \(G\) acts on \(X\) by \(\sigma \cdot i = \sigma(i)\).
+  Let \(n\) be a positive integer and let \(G = \mathbb S_{n}\), the \(n\)th symmetric group. Let \(X = \{1, \ldots, n\}\). Then \(G\) acts on \(X\) by \(\sigma \cdot i = \sigma(i)\).
 \end{example}
 
 
@@ -1087,6 +1098,23 @@ The fundamental theorem about group actions is the following:
 
 \begin{proof}
   This follows from~\nameref{thm:group-theory:lagranges-theorem}. By Lemma~\ref{lem:group-theory:stabilizer-is-subgroup}, we just need to show that each of the stabilizer's cosets correspond to a unique element of \(G \cdot x\), and visa versa. The maps we construct are \(g \cdot x \mapsto g\Stab_{G}(x)\) and \(g\Stab_{G}(x) \mapsto g\cdot x\). These maps are well defined and inverse to each other, so there is a bijection between the cosets of the stabilizer and \(G \cdot x\). Hence, \(|G| = |\Stab_{G}(x)| |G \cdot x|\).
+\end{proof}
+
+We have enough to prove~\nameref{thm:group-theory:cauchys-theorem}.
+
+% TODO Add cyclic group example, with proof that it has no non-trivial subgroups.
+\begin{proof}
+  \textbf{Proof of~\nameref{thm:group-theory:cauchys-theorem},Theorem~\ref{thm:group-theory:cauchys-theorem}}.
+
+  Let \(G\) be a group with order \(n\), and let \(p\) be a prime number that divides \(n\). Our goal is to show that \(G\) contains an element of order \(p\), which generates a subgroup of order \(p\) in \(G\). Define the set \(X \coloneqq \{(g_{0}, \ldots, g_{n-1}) \mid \prod_{i=0}^{n-1}g_{i} = e\}\). The cyclic group of order \(p\), \(C_{p}\), acts on this group by \(m \cdot (g_{i}) \coloneqq (g_{i + m \mod n})\). Our goal is to show that there must exist a non-identity element which is fixed by this group action.
+
+  By a simple counting argument, we see that \(|X| = |G|^{p-1}\), which is a multiple of \(p\). By Lemma~\ref{lem:group-theory:orbits-partition}, the orbits must partition \(X\), and by The~\nameref{thm:group-theory:orbit-stabilizer}, each orbit must have size \(1\) or \(p\). Choosing a representative for each orbit \(x_{0}, \ldots x_{m-1}\), we have that
+  \[|X| = pk = \sum_{i=0}^{m-1} C_{p} \cdot x_{i}.\]
+  One of these orbits is a singleton containing the element \((e, \ldots, e)\), so we can write
+
+  \[pk = 1 + \sum_{x_{i} \neq e} C_{p} \cdot x_{i}.\]
+
+  Since the left hand side is a multiple of \(p\), the right hand side must be also. As \(1\) is not a multiple of \(p\), there must exist \(p-1\) representatives that have orbits of size \(1\). Denote one such element by \(\overline x\). We must also have that \(|\Stab_{C_{p}}(\overline x)| = p\), and so \(\overline x = (g \ldots, g)\) for some non-identity element \(g \in G\). Therefore, \(\prod_{i=0}^{p-1}g = e\), and so \(o(g) \leq p\). If the order of \(g\) was less than \(p\), then \(p\) would need to be a multiple of the order. As \(p\) is prime, this is not the case, and so \(o(g) = p\).
 \end{proof}
 
 \begin{example}
@@ -1127,7 +1155,7 @@ The fundamental theorem about group actions is the following:
 
 
 \begin{theorem}\label{thm:group-theory:p-group-non-trivial-centre}
-  Let \(G\) be a nontrivial finite \(p\)-group. Then the centre \(Z(G) \neq \{e\}\).
+  Let \(G\) be a non-trivial finite \(p\)-group. Then the centre \(Z(G) \neq \{e\}\).
 \end{theorem}
 
 \begin{proof}
@@ -1139,12 +1167,20 @@ The fundamental theorem about group actions is the following:
   As \(|\Cl(a)| = 1\) if and only if \(a \in Z(G)\), each \(\Cl(a_{i})|\) must be a power of \(p\). Since \(p | p^{k}\), we must have \(p | |Z(G)|\) and so \(Z(G)\) is non-trivial.
 \end{proof}
 
+\begin{lemma}\label{lem:group-theory:cyclic-centre-implies-abelian}
+  If \(G\) is a group with \(G / Z(G)\) cyclic, then \(G\) is abelian.
+\end{lemma}
+
+\begin{proof}
+  As \(G / Z(G)\) is cyclic, there is some \(h \in G\) such that \(hZ(G)\) generates \(G / Z(G)\). Then, since the cosets partition \(G\), every element \(g \in G\) is equal to \(h^{n}k\), for some \(k \in Z(G)\). The product \(gg'\) is then equal to \(h^{n}kh^{m}k'\) for some \(k, k' \in Z(G)\). Each term in this product commutes with the other terms, since we can swap powers of \(h\) and the centre of a group is exactly the elements that commute with every other element. Hence, \(gg' = h^{n}kh^{m}k' = h^{m}k'h^{n}k = g'g\), and \(G\) is abelian.
+\end{proof}
+
 \begin{corollary}
   If \(G\) is a group with \(|G| = p^{2}\), then \(G\) is abelian.
 \end{corollary}
 
 \begin{proof}
-  By Theorem~\ref{thm:group-theory:p-group-non-trivial-centre}, \(G\) has a nontrivial centre, and so \(|Z(G)|\) is equal to \(p\) or \(p^{2}\). If it equals \(p^{2}\), then \(G\) is abelian, so assume the order of the centre is \(p\). By The \nameref{cor:group-theory:class-equation}, there must be an element \(a \in G\) such that \(p^{2} = |Z(G)| + |\Cl(a)| = p + |\Cl(a)|\). Since \(|\Cl(a)|\) can't be 1 or \(p^{2}\), it must be equal to \(p\). But then \(p^{2} = 2p\), which only holds for \(p = 2\). However, every group of order \(4\) is abelian, hence \(Z(G) = G\). Therefore, \(G\) is abelian.
+  By Theorem~\ref{thm:group-theory:p-group-non-trivial-centre}, \(G\) has a non-trivial centre, and so \(|Z(G)|\) is equal to \(p\) or \(p^{2}\). If it equals \(p^{2}\), then \(G\) is abelian, so assume the order of the centre is \(p\). Since \(Z(G)\) is normal in \(G\), we can quotient by it and get that \(G/Z(G)\) has order \(p\) and is therefore cyclic. By Lemma~\ref{lem:group-theory:cyclic-centre-implies-abelian}, \(G\) must be abelian.
 \end{proof}
 
 
@@ -1154,24 +1190,56 @@ The fundamental theorem about group actions is the following:
   Let \(G\) be a finite group and let \(p\) be a prime number. A subgroup \(H \leq G\) is a \indx{\(p\)-subgroup} of \(G\) if it is a \(p\)-group. We say it is a \indx{Sylow \(p\)-subgroup} of \(G\) if its order is the highest power of \(p\) that divides the order of \(G\). We say that \(H\) is a \indx{Sylow subgroup} of \(G\) if its is a Sylow \(p\)-subgroup for some prime \(p\).
 \end{definition}
 
-If \(p\) does not divide \(|G|\), then the trivial subgroup is the unique Sylow \(p\)-subgroup of \(G\). When we want to exclude this case, we refer to \indx{nontrivial Sylow \(p\)-subgroups}.
+If \(p\) does not divide \(|G|\), then the trivial subgroup is the unique Sylow \(p\)-subgroup of \(G\). When we want to exclude this case, we refer to \indx{non-trivial Sylow \(p\)-subgroups}.
 
-It's not obvious that nontrivial Sylow \(p\)-subgroups always exist. The first Sylow theorem guarantees that they do. The second Sylow Theorem says that for a given \(p\) all Sylow \(p\)-subgroups of \(G\) are conjugate, and the third gives information about the number of Sylow \(p\)-subgroups of \(G\).
+\begin{definition}
+  For any group \(G\), let \(n_{p}\) be the number of distinct Sylow \(p\)-subgroups of \(G\).
+\end{definition}
 
-\begin{theorem}\label{thm:group-theory:sylow-1}
+It's not obvious that non-trivial Sylow \(p\)-subgroups always exist. The first Sylow Theorem guarantees that they do. The second Sylow Theorem says that for a given \(p\) all Sylow \(p\)-subgroups of \(G\) are conjugate, and the third gives information about the number of Sylow \(p\)-subgroups of \(G\).
+
+\begin{theorem}[Sylow 1]\label{thm:group-theory:Sylow-1}
   Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Then, there exists a subgroup of order \(p^{m}\); that is, there is exists a Sylow \(p\)-subgroup.
 \end{theorem}
 
 \begin{proof}
+  Define a set \(X \coloneqq \{ A \subset G \mid |A| = p^{m}\}\). This is a set of \textit{subsets} of \(G\). There is a group action we can put on \(X\), namely \(g \cdot A \coloneqq gA\). To prove the First Sylow Theorem, we show that this group action has an orbit whose size is not divisible by \(p\). From this, we can then construct a subgroup of \(G\) with order \(p^{m}\).
 
+  Since \(X\) is formed from all subsets of size \(p^{m}\) from a set of size \(p^{m} r\), \(|X| = {p^{m}r \choose p^{m}}\). We can write
+
+  \[{p^{m}r \choose p^{m}} = \frac{p^{m}r(p^{m}r-1)(p^{m}r -2) \ldots (p^{m}r - (p^{m}-1))}{p^{m}(p^{m} - 1)(p^{m} - 2)\ldots(p^{m} - (p^{m} - 1))}.\]
+
+  Looking at the terms \(p^{m}r - s\) and \(p^{m} - s\) for \(1 \leq s \leq p^{m}-1\), we see that the highest power of \(p\) dividing them both is the same - it is the highest power of \(p\) that divides \(s\). We can then pair up terms on the numerator and denominator that are divisible by the same powers of \(p\). This results in the right hand side of the above equation not being divisible by \(p\), and so \(|X|\) isn't either. As \(X\) is a disjoint union of orbits, there must be at least one orbit whose cardinality isn't divisible by \(p\)\footnote{If this were false, \(|X|\) is equal to the sum of numbers divisible by \(p\) and would be divisible by \(p\) itself.}.
+
+  Choose an orbit whose cardinality is not divisible by \(p\) and call it \(G \cdot A\). The~\nameref{thm:group-theory:orbit-stabilizer} tells us that \(|G \cdot A| = [G : \Stab_{G}(A)]\), which means that \(|\Stab_{G}(A)|\) must be divisible by \(p^{m}\). Since \(\Stab_{G}(A) \cdot (A) = A\), for any \(a \in A\) we have \(\Stab_{G}(A)a \subset A\). This means \(|\Stab_{G}(A)| = |\Stab_{G}(A)a| \leq |A| = p^{m}\). Therefore, \(\Stab_{G}(A)\) is a subgroup \(G\) with size \(p^{m}\).
 \end{proof}
 
-\begin{theorem}\label{thm:group-theory:sylow-2}
+
+Before proving~\ref{thm:group-theory:Sylow-2}, we prove the following lemma.
+
+\begin{lemma}
+  Let \(p\) be a prime and \(G\) a finite \(p\)-group acting on a finite set \(X\). The number of fixed points in \(X\) is congruent to \(|X| \mod p\).
+\end{lemma}
+
+\begin{proof}
+  Let \(x_{1}, \ldots x_{m}\) be representatives for the orbits which partition \(X\). The singleton orbits are exactly the sets containing the fixed points of the group action. Define \(X_{0}\) to be the subset of \(X\) consisting of the fixed points, and remove and re-index our original representatives to be representatives of the remaining orbits: \(x_{1}, \ldots, x_{n} \in X \ X_{0}\). As each \(x_{i}\) is not a fixed point, the stabilizers \(\Stab_{G}(x_{i})\) are proper subgroups of \(G\) and their indices \([G : \Stab_{G}(x_{i})]\) must all be greater than 1, by~\nameref{thm:group-theory:lagranges-theorem}. Each indice must divide the order of \(G\), and hence be a power of \(p\). The~\ref{thm:group-theory:orbit-stabilizer} then gives that \(p\) divides \(|G \cdot x_{i}|\) for each \(i\). Since
+  \[|X| = |X_{0}| + \sum_{i=1}^{n} |G \cdot x_{i}|,\]
+
+  and each of \(|G \cdot x_{i}|\) are divisible by \(p\), \(|X| = |X_{0}| \mod p\).
+\end{proof}
+
+\begin{note}
+  The proof of Theorem~\ref{thm:group-theory:p-group-non-trivial-centre} is really just an application of this proof.
+\end{note}
+
+We can now prove~\nameref{thm:group-theory:Sylow-2}.
+
+\begin{theorem}[Sylow 2]\label{thm:group-theory:Sylow-2}
   Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Suppose that \(P\) is a Sylow \(p\)-subgroup and \(H \leq G\) is any \(p\)-subgroup of \(G\). Then, there exists \(x \in G\) with \(H \subset xPx^{-1}\). In particular, any two Sylow \(p\)-subgroups of \(G\) are conjugate in \(G\).
 \end{theorem}
 
-\begin{theorem}\label{thm:group-theory:sylow-3}
-  Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Let \(n_{p}\) be the number of distinct Sylow \(p\)-subgroups of \(G\). Then, \(n_{p} | r\) and \(n_{p} = 1 \mod p\).
+\begin{theorem}[Sylow 3]\label{thm:group-theory:Sylow-3}
+  Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Then, \(n_{p} | r\) and \(n_{p} = 1 \mod p\).
 \end{theorem}
 
 A useful lemma this often used in conjunction with the Sylow Theorems is the following:
