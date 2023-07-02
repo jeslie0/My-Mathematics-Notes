@@ -319,7 +319,7 @@ An important construct from a subgroup \(H \leq G\) is that of the left and righ
 
 We reach the titular theorem of this section.
 
-\begin{theorem}[Lagrange's Theorem]\label{thm:group-theory:lagranges-theorem}
+\begin{theorem}[Lagrange's Theorem]\label{thm:group-theory:Lagranges-theorem}
   Let \(H\) be a subgroup of a finite group \(G\). Then
   \[|G| = [G : H]|H|.\]
 \end{theorem}
@@ -1097,7 +1097,7 @@ The fundamental theorem about group actions is the following:
 \end{theorem}
 
 \begin{proof}
-  This follows from~\nameref{thm:group-theory:lagranges-theorem}. By Lemma~\ref{lem:group-theory:stabilizer-is-subgroup}, we just need to show that each of the stabilizer's cosets correspond to a unique element of \(G \cdot x\), and visa versa. The maps we construct are \(g \cdot x \mapsto g\Stab_{G}(x)\) and \(g\Stab_{G}(x) \mapsto g\cdot x\). These maps are well defined and inverse to each other, so there is a bijection between the cosets of the stabilizer and \(G \cdot x\). Hence, \(|G| = |\Stab_{G}(x)| |G \cdot x|\).
+  This follows from~\nameref{thm:group-theory:Lagranges-theorem}. By Lemma~\ref{lem:group-theory:stabilizer-is-subgroup}, we just need to show that each of the stabilizer's cosets correspond to a unique element of \(G \cdot x\), and visa versa. The maps we construct are \(g \cdot x \mapsto g\Stab_{G}(x)\) and \(g\Stab_{G}(x) \mapsto g\cdot x\). These maps are well defined and inverse to each other, so there is a bijection between the cosets of the stabilizer and \(G \cdot x\). Hence, \(|G| = |\Stab_{G}(x)| |G \cdot x|\).
 \end{proof}
 
 We have enough to prove~\nameref{thm:group-theory:cauchys-theorem}.
@@ -1217,12 +1217,12 @@ It's not obvious that non-trivial Sylow \(p\)-subgroups always exist. The first 
 
 Before proving~\ref{thm:group-theory:Sylow-2}, we prove the following lemma.
 
-\begin{lemma}
+\begin{lemma}\label{lem:group-theory:fixed-points-p-group-action}
   Let \(p\) be a prime and \(G\) a finite \(p\)-group acting on a finite set \(X\). The number of fixed points in \(X\) is congruent to \(|X| \mod p\).
 \end{lemma}
 
 \begin{proof}
-  Let \(x_{1}, \ldots x_{m}\) be representatives for the orbits which partition \(X\). The singleton orbits are exactly the sets containing the fixed points of the group action. Define \(X_{0}\) to be the subset of \(X\) consisting of the fixed points, and remove and re-index our original representatives to be representatives of the remaining orbits: \(x_{1}, \ldots, x_{n} \in X \ X_{0}\). As each \(x_{i}\) is not a fixed point, the stabilizers \(\Stab_{G}(x_{i})\) are proper subgroups of \(G\) and their indices \([G : \Stab_{G}(x_{i})]\) must all be greater than 1, by~\nameref{thm:group-theory:lagranges-theorem}. Each indice must divide the order of \(G\), and hence be a power of \(p\). The~\ref{thm:group-theory:orbit-stabilizer} then gives that \(p\) divides \(|G \cdot x_{i}|\) for each \(i\). Since
+  Let \(x_{1}, \ldots x_{m}\) be representatives for the orbits which partition \(X\). The singleton orbits are exactly the sets containing the fixed points of the group action. Define \(X_{0}\) to be the subset of \(X\) consisting of the fixed points, and remove and re-index our original representatives to be representatives of the remaining orbits: \(x_{1}, \ldots, x_{n} \in X \ X_{0}\). As each \(x_{i}\) is not a fixed point, the stabilizers \(\Stab_{G}(x_{i})\) are proper subgroups of \(G\) and their indices \([G : \Stab_{G}(x_{i})]\) must all be greater than 1, by~\nameref{thm:group-theory:Lagranges-theorem}. Each indice must divide the order of \(G\), and hence be a power of \(p\). The~\ref{thm:group-theory:orbit-stabilizer} then gives that \(p\) divides \(|G \cdot x_{i}|\) for each \(i\). Since
   \[|X| = |X_{0}| + \sum_{i=1}^{n} |G \cdot x_{i}|,\]
 
   and each of \(|G \cdot x_{i}|\) are divisible by \(p\), \(|X| = |X_{0}| \mod p\).
@@ -1238,6 +1238,12 @@ We can now prove~\nameref{thm:group-theory:Sylow-2}.
   Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Suppose that \(P\) is a Sylow \(p\)-subgroup and \(H \leq G\) is any \(p\)-subgroup of \(G\). Then, there exists \(x \in G\) with \(H \subset xPx^{-1}\). In particular, any two Sylow \(p\)-subgroups of \(G\) are conjugate in \(G\).
 \end{theorem}
 
+\begin{proof}
+  The \(p\)-subgroup \(H\) acts on the group of cosets \(G/P\) by \(h \cdot gP \coloneqq hgP\). Lemma~\ref{lem:group-theory:fixed-points-p-group-action} ensures that the number of fixed points of this action is congruent modulo \(p\) to \(|G/P| = [G : P] = r\), by~\nameref{thm:group-theory:Lagranges-theorem}. Since \(p\) can't divide \([G : P]\) as \(P\) is a Sylow \(p\)-subgroup, there must exist a fixed point, \(xP\). Then, \(hxP = xP\) for all \(h in H\) and so \(x^{-1}hx \in P\) for all \(h \in H\). Therefore, \(x^{-1}Hx \subset P\), and so \(H \subset xPx^{-1}\).
+
+  Supposing that \(H\) is a Sylow \(p\)-subgroup, \(|H| = |P| = |xPx^{-1}|\). Since \(H \subset xPx^{-1}\), we must have \(H = xPx^{-1}\) and so \(H\) is conjugate to \(P\).
+\end{proof}
+
 \begin{theorem}[Sylow 3]\label{thm:group-theory:Sylow-3}
   Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Then, \(n_{p} | r\) and \(n_{p} = 1 \mod p\).
 \end{theorem}
@@ -1247,6 +1253,12 @@ A useful lemma this often used in conjunction with the Sylow Theorems is the fol
 \begin{lemma}
   Let \(G\) be a finite group and \(p\) a prime number. Then \(G\) has a Sylow \(p\)-subgroup that is normal in \(G\) if and only if \(n_{p} = 1\).
 \end{lemma}
+
+
+
+
+
+
 
 % ** Introduction to Number Theory
 \chapter{Introduction to Number Theory}\label{cha:intr-numb-theory}
