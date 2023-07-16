@@ -39,7 +39,6 @@
             export PATH="${pkgs.lib.makeBinPath buildInputs}";
             mkdir -p .cache/texmf-var
             env TEXMFVAR=.cache/texmf-var \
-                OSFONTDIR=${myfonts}/share/fonts \
                 SOURCE_DATE_EPOCH=${toString self.lastModified} \
                   latexmk -interaction=nonstopmode -pdf -lualatex -bibtex \
                   -pretex="\pdfvariable suppressoptionalinfo 512\relax" \
