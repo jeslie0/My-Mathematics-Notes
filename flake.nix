@@ -5,16 +5,14 @@
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     flake-utils.url = github:numtide/flake-utils;
     fonts.url = github:jeslie0/fonts;
-    texmf.url = github:jeslie0/texmf;
   };
 
-  outputs = { self, nixpkgs, flake-utils, fonts, texmf }:
+  outputs = { self, nixpkgs, flake-utils, fonts }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         myfonts = fonts.defaultPackage.${system};
-        mytexmf = texmf.defaultPackage.${system};
         tex = pkgs.texlive.combine {
           # Put the packages that we want texlive to use when compiling the PDF in here.
           inherit (pkgs.texlive)
@@ -27,7 +25,7 @@
             fontspec
             latexmk;
         };
-        buildInputs = [ pkgs.coreutils tex myfonts mytexmf ];
+        buildInputs = [ pkgs.coreutils tex myfonts ];
         packageName = "mathematics";
         version = "0.0.0";
       in
@@ -41,8 +39,7 @@
           buildPhase = ''
             export PATH="${pkgs.lib.makeBinPath buildInputs}";
             mkdir -p .cache/texmf-var
-            env TEXMFHOME=${texmf} \
-                TEXMFVAR=.cache/texmf-var \
+            env TEXMFVAR=.cache/texmf-var \
                 OSFONTDIR=${myfonts}/share/fonts \
                 SOURCE_DATE_EPOCH=${toString self.lastModified} \
                   latexmk -interaction=nonstopmode -pdf -lualatex -bibtex \
@@ -64,11 +61,6 @@
           inputsFrom = [
             self.packages.${system}.${packageName} # Include the inputs from our tex build
           ];
-          # shellHook = ''
-          #   export TEXMFHOME=${mytexmf} \
-          #          OSFONTDIR=${myfonts}/share/fonts \
-          #          SOURCE_DATE_EPOCH=${toString self.lastModified}
-          # # ''; # Adds my texmf folder and fonts so that they can be used in the devshell. Also sets the date to the last commit of the repository.
         };
       }
     );

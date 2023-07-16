@@ -30,21 +30,6 @@
         "type": "github"
       }
     },
-    "flake-utils_3": {
-      "locked": {
-        "lastModified": 1649676176,
-        "narHash": "sha256-OWKJratjt2RW151VUlJPRALb7OU2S5s+f0vLj4o1bHM=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "a4b154ebbdc88c8498a5c7b01589addc9e9cb678",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "fonts": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -96,47 +81,11 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1650831523,
-        "narHash": "sha256-6pDZ08SAXsUx5rOP391x+TG39ENP/XA8VMa1tQvgEjc=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "87d34a6b8982e901b8e50096b8e79ebc0e66cda0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
         "fonts": "fonts",
-        "nixpkgs": "nixpkgs_2",
-        "texmf": "texmf"
-      }
-    },
-    "texmf": {
-      "inputs": {
-        "flake-utils": "flake-utils_3",
-        "nixpkgs": "nixpkgs_3"
-      },
-      "locked": {
-        "lastModified": 1668125762,
-        "narHash": "sha256-1D1bZHipmCMYQfvdiEmcS8N1jBqKKp30botQACbZxfg=",
-        "owner": "jeslie0",
-        "repo": "texmf",
-        "rev": "a6cc525c3223c63c82b71ed3eb7d17d48a16cf96",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jeslie0",
-        "repo": "texmf",
-        "type": "github"
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },
