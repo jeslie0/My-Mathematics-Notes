@@ -1434,24 +1434,78 @@ We can now prove~\nameref{thm:group-theory:Sylow-2}.
 \end{theorem}
 
 \begin{proof}
-  The \(p\)-subgroup \(H\) acts on the group of cosets \(G/P\) by \(h \cdot gP \coloneqq hgP\). Lemma~\ref{lem:group-theory:fixed-points-p-group-action} ensures that the number of fixed points of this action is congruent modulo \(p\) to \(|G/P| = [G : P] = r\), by~\nameref{thm:group-theory:Lagranges-theorem}. Since \(p\) can't divide \([G : P]\) as \(P\) is a Sylow \(p\)-subgroup, there must exist a fixed point, \(xP\). Then, \(hxP = xP\) for all \(h in H\) and so \(x^{-1}hx \in P\) for all \(h \in H\). Therefore, \(x^{-1}Hx \subset P\), and so \(H \subset xPx^{-1}\).
+  The \(p\)-subgroup \(H\) acts on the group of cosets \(G/P\) by \(h \cdot gP \coloneqq hgP\). Lemma~\ref{lem:group-theory:fixed-points-p-group-action} ensures that the number of fixed points of this action is congruent modulo \(p\) to \(|G/P| = [G : P] = r\), by~\nameref{thm:group-theory:Lagranges-theorem}. Since \(p\) can't divide \([G : P]\) as \(P\) is a Sylow \(p\)-subgroup, there must exist a fixed point, \(xP\). Then, \(hxP = xP\) for all \(h \in H\) and so \(x^{-1}hx \in P\) for all \(h \in H\). Therefore, \(x^{-1}Hx \subset P\), and so \(H \subset xPx^{-1}\).
 
   Supposing that \(H\) is a Sylow \(p\)-subgroup, \(|H| = |P| = |xPx^{-1}|\). Since \(H \subset xPx^{-1}\), we must have \(H = xPx^{-1}\) and so \(H\) is conjugate to \(P\).
 \end{proof}
+
+A useful lemma this often used in conjunction with the Sylow Theorems is the following, which we can prove now with \nameref{thm:group-theory:Sylow-2}.
+
+\begin{lemma}\label{lem:group-theory:p-group-normal-iff-np=1}
+  Let \(G\) be a finite group and \(p\) a prime number. Then \(G\) has a Sylow \(p\)-subgroup that is normal in \(G\) if and only if \(n_{p} = 1\).
+\end{lemma}
+
+\begin{proof}
+  Let \(P \leq G\) be a Sylow \(p\)-subgroup. By \nameref{thm:group-theory:Sylow-2}, all \(p\)-subgroups are conjugate, so \(n_{p}\) is the number of conjugates of \(P\) and a subgroup is normal if and only if it has a unique conjugate. Hence, \(P\) is normal if and only if \(n_{p} = 1\).
+\end{proof}
+
+The Third Sylow theorem tells us how to count Sylow \(p\)-subgroups. This number is closely related to a new subgroup of \(G\).
+
+\begin{definition}\label{def:group-theory:normalizer}
+  Let \(G\) be a group and \(H \leq G\). The \indx{normalizer} of \(H\) is
+  \[N_{G}(H) = \{g \in G \mid gHg^{-1} = H\}.\]
+\end{definition}
+
+\begin{lemma}
+  For any \(H \leq G\), \(N_{H}(G)\) is a subgroup of \(G\).
+\end{lemma}
+
+\begin{proof}
+  It is clear that \(e \in N_{G}(H)\). If \(g,h \in N_{H}(G)\), then we have
+  \[gh^{-1}H hg^{-1} = gHg^{-1} = H,\]
+  and so \(N_{H}(G) \leq G\).
+\end{proof}
+
+It is clear that \(H \triangleleft N_{G}(H)\) and that \(N_{G}(H)\) is the largest subgroup \(N\) of \(G\) with \(H \triangleleft N\). The normalizer tells us how close a subgroup \(H\) is to being normal, with \(H \triangleleft G\) if and only if \(N_{G}(H) = G\).
+
+\begin{lemma}
+  Let \(G\) be a finite group.
+
+  \begin{enumerate}
+    \item For any subgroup \(H \leq G\), we have
+      \[[G:N_{G}(H)] = \text{the number of distinct conjugates of } H.\]
+    \item Let \(p \mid |G|\) and let \(P\) be a Sylow \(p\)-subgroup of \(G\). Then \(n_{p} = [G:N_{G}(P)]\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \begin{enumerate}
+  \item Let \(X\) be the set of conjugates of \(H\). Then, \(G\) acts on \(X\) by conjugation with \(a \cdot bHb^{-1} = abH(ab)^{-1}\). By The \nameref{thm:group-theory:orbit-stabilizer} Theorem,
+    \[|G| = |\Stab_{G}(H)| |G\cdot H|.\]
+    By definition, \(G \cdot H = X\) and \(\Stab_{H}(G) = N_{G}(H)\). This gives
+
+    \[\text{the number of conjugates of } H = |X| = \frac{|G|}{|N_{G}H|} = [G : N_{G}(H)].\]
+
+  \item This is immediate since the number of conjugates of \(P\) is equal to \(n_{p}\), by the proof of Lemma~\ref{lem:group-theory:p-group-normal-iff-np=1}.
+  \end{enumerate}
+\end{proof}
+
+We can now prove \nameref{thm:group-theory:Sylow-3}.
 
 \begin{theorem}[Sylow 3]\label{thm:group-theory:Sylow-3}
   Let \(|G| = n\) and \(p\) be a prime that divides \(n\). Write \(n = p^{m}r\), with \(p \not| r\). Then, \(n_{p} | r\) and \(n_{p} = 1 \mod p\).
 \end{theorem}
 
-\begin{proof}% TODO
+\begin{proof}
+  As \(n_{p} = [G : N_{G}(P)] = |G|/|N_{G}(P)|\), we have
+  \[r = \frac{|G|}{|P|} = \frac{|G|}{|N_{G}(P)|} \frac{|N_{G}(P)|}{|P|} = n_{p}\frac{|N_{G}(P)|}{|P|},\]
+  and so \(n_{p} | r\).
 
+  Let \(X\) be the set of all Sylow \(p\)-subgroups of \(G\) and choose \(P \in X\). Let the \(p\)-group \(P\) act on \(X\) by conjugation. The number of fixed points for this action is congruent to \(|X| = n_{p} \mod p\), by Lemma~\ref{lem:group-theory:fixed-points-p-group-action}. We prove that \(P\) is the unique fixed point of this action.
+  It is clear that \(P\) is a fixed point, since \(pPp^{-1} = P\) for all \(p \in P\). If \(pQp^{-1} = Q\) for all \(p \in P\), then \(P \subset N_{G}(Q)\), and so \(P\) and \(Q\) are Sylow \(p\)-subgroups of \(N_{G}(Q)\). As \(Q \triangleleft N_{G}(Q)\), \(Q\) is the only Sylow \(p\)-subgroup of \(N_{G}(Q)\) by Lemma~\ref{lem:group-theory:p-group-normal-iff-np=1}. Then, we must have \(P = Q\).
+
+  By Lemma~\ref{lem:group-theory:fixed-points-p-group-action}, \(n_{p} = |X| = 1 \mod p\), as required.
 \end{proof}
-
-A useful lemma this often used in conjunction with the Sylow Theorems is the following:
-
-\begin{lemma}
-  Let \(G\) be a finite group and \(p\) a prime number. Then \(G\) has a Sylow \(p\)-subgroup that is normal in \(G\) if and only if \(n_{p} = 1\).
-\end{lemma}
 
 
 
