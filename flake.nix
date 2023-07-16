@@ -16,10 +16,6 @@
         tex = pkgs.texlive.combine {
           # Put the packages that we want texlive to use when compiling the PDF in here.
           inherit (pkgs.texlive)
-            # scheme-minimal
-            # scheme-basic
-            # scheme-small
-            # scheme-medium
             scheme-full
             latex-bin
             fontspec

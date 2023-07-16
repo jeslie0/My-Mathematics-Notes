@@ -36,11 +36,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1659893029,
-        "narHash": "sha256-YMXrjyOG2462tFnbl+dfkt72gBkfqhXX7bg5URkobeM=",
+        "lastModified": 1689525788,
+        "narHash": "sha256-wsTvfIVjiFLDt9bwQqkbfo2cxsfDKCe8jOaWr4Kvhfk=",
         "owner": "jeslie0",
         "repo": "fonts",
-        "rev": "b140041896201ca1c9263c0d9f9f0ddebbaf1eba",
+        "rev": "b2d2aa51642832d68f60348867467b3d8093eb87",
         "type": "github"
       },
       "original": {
