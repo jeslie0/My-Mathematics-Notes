@@ -1,4 +1,4 @@
-name: Build PDF Artifact
+name: Build PDF Artefact
 on:
   push:
     branches:
@@ -28,10 +28,16 @@ jobs:
       - name: Build PDF
         run: nix build
 
+      - name: Delete Releases
+        uses: sgpublic/delete-release-action@v1.0
+        with:
+          release-drop: true
+          release-keep-count: "-1"
+
       - name: Upload PDF to release
         uses: svenstaro/upload-release-action@v2
         with:
           file: result/mathematics.pdf
-          asset_name: mathematics.pdf
+          asset_name: mathematics_notes_${{ steps.date.outputs.date }}.pdf
+          release_name: ${{ steps.date.outputs.date }}
           overwrite: true
-          body: "Current release of my notes"
