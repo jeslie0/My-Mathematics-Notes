@@ -1,0 +1,31 @@
+name: Build PDF Artifact
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Nix
+        uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            trusted-public-keys = jeslie0.cachix.org-1:orKPykG+p5gEbLe/ETPIQdAbK5WtUl2C6CZ+aVn0dy8= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+            substituters = https://jeslie0.cachix.org https://cache.nixos.org/
+
+      - name: Build PDF
+        run: nix build
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.date.outputs.date }}-mathematics.pdf
+          path: result/mathematics.pdf
