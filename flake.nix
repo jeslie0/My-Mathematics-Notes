@@ -1,5 +1,5 @@
 {
-  description = "A LuaTex project flake template";
+  description = "Nix flake to build my mathematics notes";
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
@@ -59,7 +59,6 @@
 
         devShell = pkgs.mkShell {
           packages = with pkgs; [
-            texlab # A latex language server
           ];
           inputsFrom = [
             self.packages.${system}.${packageName} # Include the inputs from our tex build
