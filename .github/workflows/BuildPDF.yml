@@ -25,7 +25,11 @@ jobs:
       - name: Build PDF
         run: nix build
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload PDF to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: ${{ steps.date.outputs.date }}-mathematics.pdf
-          path: result/mathematics.pdf
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: result/mathematics.pdf
+          asset_name: mathematics.pdf
+          overwrite: true
+          body: "Current release of my notes"
