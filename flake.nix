@@ -25,7 +25,10 @@
             fontspec
             latexmk;
         };
-        buildInputs = [ pkgs.coreutils tex myfonts ];
+        buildInputs = [ pkgs.coreutils
+                        tex
+                      #  myfonts
+                      ];
         packageName = "mathematics";
         version = "0.0.0";
       in
