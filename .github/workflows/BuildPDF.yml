@@ -33,6 +33,8 @@ jobs:
         with:
           release-drop: true
           release-keep-count: "-1"
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
       - name: Upload PDF to release
         uses: svenstaro/upload-release-action@v2
