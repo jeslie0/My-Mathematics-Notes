@@ -18,26 +18,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Nix
-        uses: cachix/install-nix-action@v18
-        with:
-          extra_nix_config: |
-            trusted-public-keys = jeslie0.cachix.org-1:orKPykG+p5gEbLe/ETPIQdAbK5WtUl2C6CZ+aVn0dy8= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-            substituters = https://jeslie0.cachix.org https://cache.nixos.org/
+      # - name: Set up Nix
+      #   uses: cachix/install-nix-action@v18
+      #   with:
+      #     extra_nix_config: |
+      #       trusted-public-keys = jeslie0.cachix.org-1:orKPykG+p5gEbLe/ETPIQdAbK5WtUl2C6CZ+aVn0dy8= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+      #       substituters = https://jeslie0.cachix.org https://cache.nixos.org/
 
-      - name: Build PDF
-        run: nix build
+      # - name: Build PDF
+      #   run: nix build
 
       - name: Delete Releases
         uses: sgpublic/delete-release-action@v1.0
         with:
           release-drop: true
           release-keep-count: "-1"
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-      - name: Upload PDF to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          file: result/mathematics.pdf
-          asset_name: mathematics_notes_${{ steps.date.outputs.date }}.pdf
-          release_name: ${{ steps.date.outputs.date }}
-          overwrite: true
+
+
+      # - name: Upload PDF to release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     file: result/mathematics.pdf
+      #     asset_name: mathematics_notes_${{ steps.date.outputs.date }}.pdf
+      #     release_name: ${{ steps.date.outputs.date }}
+      #     overwrite: true
