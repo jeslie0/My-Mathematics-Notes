@@ -2,18 +2,20 @@
   description = "Nix flake to build my mathematics notes";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    flake-utils.url = github:numtide/flake-utils;
-    fonts.url = github:jeslie0/fonts;
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    fonts.url = "github:jeslie0/fonts";
+    texmf.url = "github:jeslie0/texmf";
   };
 
-  outputs = { self, nixpkgs, flake-utils, fonts }:
+  outputs = { self, nixpkgs, flake-utils, fonts, texmf }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         myfonts = fonts.defaultPackage.${system};
-        tex = pkgs.texlive.combine {
+        mytexmf = texmf.defaultPackage.${system};
+        mytex = pkgs.texlive.combine {
           # Put the packages that we want texlive to use when compiling the PDF in here.
           inherit (pkgs.texlive)
             scheme-full
@@ -22,7 +24,8 @@
             latexmk;
         };
         buildInputs = [ pkgs.coreutils
-                        tex
+                        mytex
+                        mytexmf
                       #  myfonts
                       ];
         packageName = "mathematics";
@@ -38,7 +41,8 @@
           buildPhase = ''
             export PATH="${pkgs.lib.makeBinPath buildInputs}";
             mkdir -p .cache/texmf-var
-            env TEXMFVAR=.cache/texmf-var \
+            env TEXMFHOME=${texmf} \
+                TEXMFVAR=.cache/texmf-var \
                 SOURCE_DATE_EPOCH=${toString self.lastModified} \
                   latexmk -interaction=nonstopmode -pdf -lualatex -bibtex \
                   -pretex="\pdfvariable suppressoptionalinfo 512\relax" \
