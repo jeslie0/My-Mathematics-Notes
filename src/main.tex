@@ -785,7 +785,21 @@ Given a group homomorphism, we can always extract a new group from it.
   Let \(G, H\) be groups.
   %
   The \indx{product group} \(G \times H\) is the group of pairs of elements \(g \in G, h \in H\), with group operations defined pointwise.
+
+  We also say that \(G \times H\) is the \indx{external direct product}.
 \end{definition}
+
+\begin{definition}\label{def:group-theory:internal-direct-product}
+  Let \(H\) and \(K\) be subgroups of a group \(G\), such that \(H \cup K = \{e\}\), and that \(hk=kh\) for all \(h \in H\), \(k \in K\). Then we say that \(G\) is the \indx{internal direct product} of \(H\) and \(K\) if \(G = \{hk \mid h \in H, k \in K\}\).
+\end{definition}
+
+\begin{lemma}
+  If \(G\) is the internal direct product of \(H, K\) then each element of \(G\) can be written uniquely in the form \(g = hk\) for some \(h \in H\) and \(k \in K\). This gives rise to an isomorphism \(G \iso H \times K\).
+\end{lemma}
+
+\begin{proof}
+  Since \(G = HK\), for every \(g \in G\), there does exist a pair \((h,k) \in H \times K\) such that \(g = hk\). If another pair \((h',k')\) with this property existed, then \(hk = h'k'\) and \(hh'^{-1} = k'k^{-1}\), meaning that since the left hand side belongs to \(H\) and the right to \(K\), both must be equal to the identity, proving uniqueness. The map \(G \to H \times K\) defined by this is then a bijection. Routine computation shows this is a group homomorphism.
+\end{proof}
 
 \begin{example}
   For coprime \(m, n\), \(C_{m} \times C_{n} \iso C_{mn}\).
@@ -797,13 +811,12 @@ Given a group homomorphism, we can always extract a new group from it.
 
 
 
-% *** Isomorphism theorems
 \section{Isomorphism theorems}
 \label{sec:group-theory:isomorphism-theorems}
 
 Arguably, the most important type of subgroup is the normal subgroup.
 
-\begin{definition}
+\begin{definition}\label{def:group-theory:normal-subgroup}
   A subgroup \(H \leq G\) is said to be \indx{normal} if \(gH = Hg\) for all \(g \in G\).
   %
   We denote this by \(H \triangleleft G\).
@@ -940,7 +953,6 @@ This result essentially gives us the First Isomorphism Theorem for groups.
 \end{example}
 
 
-% **** The Second and Third Isomorphism Theorems and the Correspondence Theorem
 \subsection{The Second and Third Isomorphism Theorems and the Correspondence Theorem}\label{sec:second-and-third-isomorphism-theorems-and-correspondence-theorem}
 
 The second and third isomorphism theorems gives us information about relating the subgroups structure of \(G /N\) to the subgroup structure of \(G\).
@@ -1157,13 +1169,11 @@ What can we say about subgroups of \(H \leq G\) that don't contain the normal su
   The left hand side has cardinality \(\lcm(a,b)/a\), while the right hand side's cardinality is \(b/\gcd(a,b)\).
   %
   This means \(ab = \gcd(a,b)\lcm(a,b)\), as required.
-
-
 \end{proof}
 
 
 
-% *** Group presentations
+
 \section{Group presentations}
 \label{sec:group-theory:group-presentations}
 
@@ -1555,12 +1565,67 @@ The Sylow theorems are very useful when trying to characterise finite groups. Th
  \nameref{thm:group-theory:Sylow-3} gives us that \(n_{p} = 1 \mod p\) and \(n_{p} \mid q\). This means that \(n_{p}\) is either 1 or \(q\). Assuming \(n_{p} = q\), there must be \(q \times (p^{2}-1) = qp^{2} - q\) elements of order \(p\) or \(p^{2}\). We also have that \(n_{q} = 1 \mod q\) and \(n_{q} | p^{2}\), giving \(n_{q}\) equal to either 1, \(p\) or \(p^{2}\). If \(n_{q} = p\), there are \(p \times (q -1) = pq - p\) elements of order \(q\). The sum \(p^{2}q + pq -q -p\) is always greater than \(p^{2}q\), so we must have \(n_{q} = p^{2}\), but this only adds more elements of order \(q\). Hence either \(n_{p} =1 \) or \(n_{q} = 1\) and there is a non-trivial normal subgroup.
 \end{proof}
 
+
+
 \section{Finitely generated abelian groups}
+This section will present results about characterising finitely generated abelian groups. The main results will have their proofs omitted, since they can be proved by more general results about \(R\)-modules.
+
+\subsection{Finite abelian groups}
+
+\begin{theorem}
+  Suppose that \(A\) is a finite abelian group of order \(n\) and that \(n = p_{1}^{s_{1}}p_{2}^{s_{2}} \ldots p_{t}^{s_{t}}\), for distinct primes \(p_{i}\). Let \(A_{p_{i}}\) be the unique Sylow \(p_{i}\)-subgroup of \(A\). Then
+  \[A \iso A_{p_{1}} \times A_{p_{2}} \times \ldots \times A_{p_{t}}.\]
+  That is, \(A\) is isomorphic to the direct products of its Sylow subgroups.
+\end{theorem}
 
 
+\begin{theorem}
+  Let \(A\) be an abelian group with \(\abs{A} = p^{n}\) for some prime \(p\). Then \(A\) is an internal direct product of cyclic subgroups of orders \(p^{e_{1}}, p^{e_{2}}, \ldots, p^{{e_{s}}}\) where \(e_{1} \geq e_{2} \geq \ldots \geq e_{s} \geq 1\) and \(e_{1} + e_{2} + \ldots + e_{s} = n\).
+\end{theorem}
 
+\begin{theorem}[Fundamental Theorem of Finite Abelian Groups, I]\label{thm:group-theory:fundamental-theorem-of-finite-abelian-groups-I}
+  Let \(A\) be a finite abelian group. Then \(A\) is a direct product of cyclic groups of prime power order.
+\end{theorem}
 
+\begin{theorem}[Chinese Remainder Theorem]
+  Let \(m, n\) be non-zero coprime integers. Then \(C_{mn} \iso C_{m} \times C_{n}\).
+\end{theorem}
 
+\begin{corollary}[Fundamental Theorem of Finite Abelian Groups, II] \label{cor:group-theory:fundamental-theorem-of-finite-abelian-groups-II}
+  Any finite abelian group of order \(n\) can be written as a direct product of cyclic groups
+  \[C_{n_{1}} \times C_{{n_{2}}} \times \ldots \times C_{n_{s}},\]
+  where \(n_{i} \mid n_{i+1}\) for each \(i = 1, 2, \ldots, s-1\) and \(n_{1}n_{2}\ldots n_{s} = n\).
+\end{corollary}
+
+\begin{definition}
+  The \indx{exponent}, \(e(G)\), of a finite group is the least common multiple of the orders of the elements of \(G\).
+\end{definition}
+
+By \nameref{thm:group-theory:Lagranges-theorem}, \(e(G) \leq \abs{G}\).
+
+\begin{lemma}
+  If \(A\) is a finite abelian group, then \(A\) contains an element of order \(e(A)\).
+\end{lemma}
+
+\begin{proof}
+  % TODO
+\end{proof}
+
+\begin{corollary}
+  If \(A\) is a finite abelian group with \(e(A) = \abs{A}\) then \(A\) is cyclic.
+\end{corollary}
+
+\begin{theorem}
+  Let \(A\) be a finite subgroup of the multiplicative group \(K^{*}\) of a field \(K\). Then \(A\) is a cyclic group.
+\end{theorem}
+
+\begin{proof}
+  The subgroup \(A\) must be abelian. Let \(e = e(A)\) and so for all \(a \in A\), \(a^{e} = 1\), so every element of \(A\) is a solution to the polynomial \(X^{e} - 1 \in K[X]\). However, a polynomial of degree \(e\) has at most \(e\) roots in \(K\) and so \(\abs{A} \leq e\), which implies \(\abs{A} = e\) and so \(A\) is cyclic.
+\end{proof}
+
+\begin{corollary}
+  The multiplicative group of a finite field is cyclic.
+\end{corollary}
 
 \section{Symmetric and alternating groups}
 \section{Jordan-H\"older}
@@ -1575,14 +1640,7 @@ The Sylow theorems are very useful when trying to characterise finite groups. Th
 
 \chapter{Commutative Algebra}\label{cha:commutative-algebra}
 
-\chapter{Lie Algebras}\label{cha:lie-algebras}
-
-
-
-\part{Analysis and calculus}
-
-\chapter{Calculus}\label{cha:calculus}
-
+\chapter{Lie Algebras}\label{cha:lie-algebras} \part{Analysis and calculus} \chapter{Calculus}\label{cha:calculus}
 \chapter{Introduction to Real Analysis}\label{cha:intr-real-analys}
 
 \chapter{Honours Analysis}\label{cha:honours-analysis}
@@ -1646,6 +1704,8 @@ This chapter presents an overview of ordinary 1-category theory, from the ground
 \section{Everything is a Kan extension}
 
 \section{(Co)Ends}
+
+\section{Monoidal categories}
 
 \section{Applications}
 
