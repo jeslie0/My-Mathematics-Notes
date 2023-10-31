@@ -1,2 +1,6 @@
 #+title: README
 This is my undertaking to type up all of my mathematics notes, from my undergraduate notes at Edinburgh, to my graduate studies at Western, to ongoing studies I do. I current estimate is that my undergraduate notes will be completed by July 2025.
+
+* Resources/Links
+** Group theory
+- [[file:~/Documents/PDFs/Mathematics Textbooks/Algebra/\[Lanini\]Group_Theory.pdf][Lanini - Group Theory]]
