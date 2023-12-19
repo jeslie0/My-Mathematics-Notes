@@ -1018,7 +1018,7 @@ The second and third isomorphism theorems gives us information about relating th
 
 These two propositions allow us to prove the following:
 
-\begin{theorem}[The Correspondence Theorem]
+\begin{theorem}[Correspondence Theorem]
   \label{thm:group-theory:the-correspondence-theorem}
   Let \(G\) be a group with \(N \triangleleft G\) and \(\theta: G \to G/N\) the canonical morphism.
   %
@@ -1712,7 +1712,7 @@ In this section, we prove that \(A_{n}\) is simple when \(n \geq 5\).
 \end{theorem}
 
 \begin{proof}
-  % TODO
+  We show that there are 5 conjugacy classes in \(A_{5}\), containing 1, 15, 20, 12, 12 elements, respectively. If \(N \triangleleft A_{5}\), then \(|N|\) will be equal to a sum from the previous numbers\footnote{I think this follows from~\nameref{cor:group-theory:class-equation}}. This sum must then divide 60 (by~\nameref{thm:group-theory:Lagranges-theorem}) and the only possibilities for this are \(N = \{()\}\) or \(N = A_{5}\), hence \(A_{5}\) is simple.
 \end{proof}
 
 For proving the result about all \(n \geq 5\), we need a few lemmas.
@@ -1751,7 +1751,142 @@ For proving the result about all \(n \geq 5\), we need a few lemmas.
 
 
 \section{Jordan-H\"older}
+This section is about unique factorisation for groups.
+
+\subsection{Composition series}
+
+\begin{definition}\label{def:group-theory:composition-series}
+  Let \(G\) be a group. A \indx{composition series} for \(G\) is a chain of subgroups
+
+  \[\{e\} = G_{0} \triangleleft G_{1} \triangleleft \ldots \triangleleft G_{s-1} \triangleleft G_{s} = G,\]
+
+  where \(G_{i} \neq G_{i+1}\) and \(G_{i+1}/G_{i}\) is simple for all \(i\).
+
+  We say that \(s\) is the \indx{length} of the composition series and the simple groups \(G_{i+1} / G_{i}\) are the \indx{composition factors}.
+\end{definition}
+
+\begin{example}
+  Here are some examples of composition series:
+
+  \begin{enumerate}
+  \item \(\{0\} \triangleleft 4 \Z / 12 \Z \triangleleft 2\Z / 12\Z \triangleleft \Z/12\Z\).
+  \item \(\{0\} \triangleleft 6 \Z / 12 \Z \triangleleft 3\Z / 12\Z \triangleleft \Z/12\Z\).
+  \end{enumerate}
+\end{example}
+
+\begin{theorem}[Jordan Holder]\label{thm:group-theory:Jordan-Holder}
+  Let \(G\) be a finite group. Then \(G\) has a composition series. Moreover, any two composition series have the same composition length and they have the same composition factors up to isomorphism of groups and order of the factors.
+\end{theorem}
+\begin{proof}
+ % TODO
+\end{proof}
+
+\begin{theorem}
+  Let \(G\) be a finite group. Then \(G\) is isomorphic to one of:
+  \begin{itemize}
+    \item Family 1: \(C_{p}\) for \(p\) prime;
+    \item Family 2: \(A_{n}\) for \(A_{n}\) with \(n \geq 5\);
+    \item 16 other infinite families;
+    \item 26 sporadic groups.
+  \end{itemize}
+\end{theorem}
+
+\subsubsection*{Existence}
+\begin{lemma}\label{lem:group-theory:composing-composition-series}
+  Suppose \(G\) is a finite group with \(N \triangleleft G\). Let
+  \[\{e\} = G_{0} \triangleleft \ldots \triangleleft G_{s} = N \]
+  be a composition series for \(N\) be a composition series for \(N\), and
+  \[\{N\} = H_{0} \triangleleft \ldots \triangleleft H_{r} = G / N\]
+  be a composition series for \(G/N\). Then there is a composition series for \(G\) of length \(s + r\) whose composition factors are, in order,
+  \[G_{1}, G_{2}/G_{1}, \ldots, G_{s}/ G_{s-1}, H_{1}, H_{2}/H_{1}, \ldots, H_{r}/H_{r-1}.\]
+\end{lemma}
+
+\begin{proof}
+  As each \(H_{i}\) is a subgroup of \(G/N\), the~\nameref{thm:group-theory:the-correspondence-theorem} gives us that \(\can^{-1}(H_{i})\) is a subgroup of \(G\) containing \(N\). Defining \(G_{s + i} \coloneqq \can^{-1}(H_{i})\), we see that since \(H_{i} \triangle H_{i+1}\), \(G_{s+i} \triangleleft G_{s+i+1}\). the~\nameref{thm:group-theory:the-third-isomorphism-theorem} then gives that
+  \[G_{s+i+1} / G_{s+i} \iso (G_{s+i+1} / N) / (G_{s + i} / N) \iso H_{i+1} / H_{i}.\]
+  By assumption, \(H_{i+1} / H_{i}\) is simple, and so \(G_{0} \triangleleft \ldots G_{s+r} = G\) is a composition series for \(G\).
+\end{proof}
+
+
+\begin{proposition}
+  If \(G\) is a finite group, then \(G\) has a composition series.
+\end{proposition}
+
+\begin{proof}
+  We proceed by induction. If \(G\) is simple, then \(\{e\} \triangleleft G\) is a composition series. If \(G\) is not simple, then \(G\) contains a normal subgroup \(N\) with \(|N| < |G|\). By Lemma~\ref{lem:group-theory:composing-composition-series}, the composition series for \(N\) can be used to construct one for \(G\).
+\end{proof}
+
+\subsubsection{Uniqueness}
+The proof of uniqueness looks like a real pain. I will omit it for now.
+\begin{theorem}
+  Let \(G\) be a finite group. Then any two composition series have the same length and the same composition factors up to isomorphism and the order in which they are listed.
+
+  More precisely, if
+  \[\{e\} = G_{0} \triangleleft \ldots \triangleleft G_{s} = G\]
+  and
+  \[\{e\} = H_{0} \triangleleft \ldots \triangleleft H_{r} = G\]
+  are two composition series for \(G\), then \(s = r\) and there is a permutation \(\sigma\) of \(\{0, \ldots, s-1\}\) such that \(H_{i+1}/H_{i} \iso G_{\sigma(i) + 1} / G_{\sigma(i)}\), for all \(i = 0, \ldots, s-1\).
+\end{theorem}
+
+
+
 \section{Solvable groups}
+Solvable groups are groups that can be built up using compositions series, from abelian groups. They play an important role in Galois theory.
+
+\begin{definition}
+  Let \(G\) be a group. A \indx{subnormal series} for \(G\) is a series of subgroups
+  \[\{e\} = G_{0} \triangleleft \ldots \triangleleft G_{s} = G\]
+\end{definition}
+
+\begin{definition}
+  A group \(G\) is \indx{solvable} (or \indx{soluble}) provided that it has a subnormal series
+  \[\{e\} = G_{0} \triangleleft \ldots \triangleleft G_{n} = G\]
+  such that each factor \(G_{i+1} / G_{i}\) is abelian.
+\end{definition}
+
+\begin{example}
+  \begin{enumerate}
+  \item Any abelian group \(A\) is solvable since \(\{e\} \triangleleft A\) is a suitable subnormal series.
+
+  \item The group \(S_{3}\) is not abelian, but it is solvable, as the subnormal series \(\{e\} \triangleleft A_{3} \triangleleft S_{3}\) is suitable.
+
+  \item The group \(S_{4}\) is solvable.
+
+  \item The group \(A_{5}\) is not solvable as it is simple and not abelian.
+
+  \item Any finite \(p\)-group is solvable.
+  \end{enumerate}
+\end{example}
+
+Solvability is related to composition series.
+
+\begin{lemma}
+  If \(A\) is a finite abelian group of order \(p_{1}^{n_{1}} p_{2}^{n_{2}} \ldots p_{k}^{n_{k}}\), then the composition factors of \(A\) are
+  \[\underbrace{C_{p_{1}}, \ldots, C_{p_{1}}}_{n_{1}} , \underbrace{C_{p_{2}}, \ldots, C_{p_{2}}}_{n_{2}} , \ldots , \underbrace{C_{p_{k}}, \ldots, C_{p_{k}}}_{n_{k}}\]
+  in some order.
+\end{lemma}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}
+  A finite group G is solvable if and only if all the composition factors of \(G\) are cyclic.
+\end{theorem}
+
+\begin{proof}
+  If the composition factors are cyclic, they are abelian, and \(G\) is solvable. Let \(G\) be solvable and let
+  \[\{e\} = G_{0} \triangleleft \ldots \triangleleft G_{n} = G\]
+  be a subnormal series with abelian factors and assume (without loss of generality that \(G_{i} \neq G_{i-1}\)).
+\end{proof}
+
+
+
+
+
+
+
+
 
 
 \chapter{Galois Theory}\label{cha:galois-theory}
