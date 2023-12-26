@@ -4,6 +4,7 @@ src/auto
 *.toc
 *.fdb_latexmk
 *.fls
+*.aux
 
 .envrc
 
