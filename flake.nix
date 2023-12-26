@@ -26,10 +26,10 @@
         buildInputs = [ pkgs.coreutils
                         mytex
                         mytexmf
-                      #  myfonts
+                        myfonts
                       ];
         packageName = "mathematics";
-        version = "0.0.0";
+        version = "0.1.0";
       in
       {
         packages.${packageName} = pkgs.stdenvNoCC.mkDerivation {
@@ -39,10 +39,12 @@
           src = ./src;
           phases = [ "unpackPhase" "buildPhase" "installPhase" ];
           buildPhase = ''
+            cp -r ${myfonts}/share/fonts/opentype/* .
             export PATH="${pkgs.lib.makeBinPath buildInputs}";
             mkdir -p .cache/texmf-var
             env TEXMFHOME=${texmf} \
                 TEXMFVAR=.cache/texmf-var \
+                OSFONTDIR=${myfonts}/share/fonts \
                 SOURCE_DATE_EPOCH=${toString self.lastModified} \
                   latexmk -interaction=nonstopmode -pdf -lualatex -bibtex \
                   -pretex="\pdfvariable suppressoptionalinfo 512\relax" \
