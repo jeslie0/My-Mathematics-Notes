@@ -1,5 +1,5 @@
 src/*main*
-src/auto
+*auto
 !src/main.tex
 *.toc
 *.fdb_latexmk
