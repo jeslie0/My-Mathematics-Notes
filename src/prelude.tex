@@ -21,6 +21,7 @@
 \usepackage{physics}
 \usepackage{stmaryrd}
 \usepackage{tikz-cd}
+\usepackage{mdframed}
 
 \usepackage{url}
 \usepackage{float}
@@ -50,7 +51,10 @@
 \newenvironment{redbox}{\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]}{\end{tcolorbox}}
 \newenvironment{yellowbox}{\begin{tcolorbox}[colback=yellow!5!white,colframe=red!75!black]}{\end{tcolorbox}}
 \newenvironment{greenbox}{\begin{tcolorbox}[colback=green!5!white,colframe=red!75!black]}{\end{tcolorbox}}
+\newenvironment{solution}{\begin{mdframed}}{\end{mdframed}}
 
+\newenvironment{questions}{\begin{enumerate}}{\end{enumerate}}
+\newenvironment{question}{\item }{}
 
 % -- Math Macros --------------------------------
 

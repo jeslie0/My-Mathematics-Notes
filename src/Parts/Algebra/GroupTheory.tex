@@ -1691,6 +1691,118 @@ Solvability is related to composition series.
   Let \(G\) be a finite group with odd order. Then \(G\) is solvable.
 \end{theorem}
 
+\section{Questions and solutions}\label{sec:group-theory:questions}
+\subsection{Lagrange and group homomorphisms}
+\begin{questions}
+  \begin{question}
+    Let \(H\) and \(K\) be subgroups of a group \(G\). Show that \(H \cap K\) is a subgroup of \(G\). When is \(H \cup K\) a subgroup of \(G\)?
+  \end{question}
+
+  \begin{solution}
+    It is clear that if \(h \in H \cap K\), then \(h^{-1} \in H\) and \(k^{-1} \in K\), hence \(h^{-1} \in H \cap K\). Therefore, for all \(h, k \in H \cap K\), \(hk^{-1} \in H \cap K\).
+
+    \(H \cup K\) is a subgroup of \(G\) precisely when \(H \subseteq K\) or \(K \subseteq H\). For the sake of contradiction, assume \(H \not\subseteq K\) and \(K \not\subseteq H\). This means that there exists \(h \in H\) such that \(h \not\in K\) and \(k \in K\) such that \(k \not\in H\). Assuming that \(H \cup K\) is a subgroup of \(G\), \(hk \in H \cup K\) and so \(hk \in H\) or \(hk \in K\). This implies that either \(k \in H\) or \(h \in K\), which is a contradiction. The reverse implication holds clearly.
+  \end{solution}
+
+  \begin{question}
+    Let \(\mu_{8}\) be the set of eighth roots of unity in \(\C^{*}\). What is the order of \(\mu_{8}\)? Find the elements \(g \in \mu_{8}\) such that \(\langle g \rangle = \mu_{8}\).
+  \end{question}
+
+  \begin{solution}
+    The set of eighth roots of unity is \(\{z \in \C^{*} \mid z^{8} = 1\}\). There are exactly eight roots, by the fundamental theorem of algebra. Let \(\omega = e^{2i\pi/8}\). The generators of \(\mu_8\) are then \(\{\omega, \omega^{3}, \omega^{5}, \omega^{7}\}\). This is because these are the only elements of \(\mu_{8}\) whose exponents are coprime to \(8\).
+  \end{solution}
+
+  \begin{question}
+    Let \(F\) be a finite field with \(q\) elements, and \(n \in \N\). Show that the order of \(GL(n, F)\) is \(\prod_{i = 0}^{n-1}(q^{n} - q^{i})\).
+  \end{question}
+
+  \begin{solution}
+    Let \(A\) be an \(n \times n\) invertible matrix over \(F\). The first row can be anything except a zero row, so there are \(q^{n} - 1\) possibilities. For the next row, it can't be a scalar multiple of the first row, so there are \(q^{n} - q\) possibilities for the second row. The next row can't be a linear combination of the previous two rows and there are exactly \(q^{2}\) ways to do that, so there are \(q^{n} - q^{2}\) options. Generalising the pattern, we see that there are
+    \[\prod_{i = 1}^{n-1} (q^{n} - q ^{i}),\]
+    as required.
+  \end{solution}
+\end{questions}
+
+\subsection{Isomorphism theorems}
+\begin{questions}
+  \begin{question}
+    The \indx{special orthogonal group} \(SO(n)\) is defined as the set of all \(2 \times 2\) real orthogonal matrices \(A\) with \(\det(A) = 1\). Show that every element of \(SO(2)\) has the form
+    \[\begin{pmatrix}
+      \cos(\theta) & -\sin(\theta) \\
+      \sin(\theta) & \cos(\theta)
+    \end{pmatrix}\]
+    for some \(\theta \in \R\).
+  \end{question}
+
+  \begin{solution}
+    % TODO
+  \end{solution}
+
+  \begin{question}
+   Show that \(SO(2)\) and \(\mu = \{z \in \C \mid |\| = 1 \}\).
+  \end{question}
+
+  \begin{solution}
+    The isomorphism between the two groups is the function
+    \[\begin{pmatrix}
+      \cos(\theta) & -\sin(\theta) \\
+      \sin(\theta) & \cos(\theta)
+    \end{pmatrix} \mapsto e^{i (\theta \mod 2\pi)}\]
+  \end{solution}
+
+  We need to take theta \(\mod 2 \pi\) to make the homomorphism injective.
+
+  \begin{question}
+    Consider \(\Z\) and \(\R\) as groups under addiction. Prove that \(\R / \Z \iso \mu\).
+  \end{question}
+
+  \begin{solution}
+    Take the function \(x \mapsto e^{ix2\pi}\) from \(\R \to \mu\). This is a surjective group homomorphism with kernel equal to \(\Z\). The~\nameref{thm:group-theory:first-isomorphism-theorem} gives us \(\R/\Z \iso \mu\).
+  \end{solution}
+
+  \begin{question}
+    Find all subgroups of \(\Z, +\) that contain \(60\Z\) and find all subgroups of \(\Z / 60\Z\) and draw a diagram indicating the inclusions among the subgroups.
+  \end{question}
+
+  \begin{solution}
+    We use the~\nameref{thm:group-theory:the-correspondence-theorem} to map between subgroups of \(\Z/60\Z\) and subgroups containing \(60\Z\).
+    \begin{center}
+      \begin{tikzcd}
+        & 60\Z                                                           &                                                               &                                            &                                               & \Z/60\Z                                                           &                                                                   &                                               \\
+        12\Z \arrow[ru, no head]                   & 20\Z \arrow[u, no head]                                        & 30\Z \arrow[lu, no head]                                      &                                            & \Z/12\Z \arrow[ru, no head]                   & \Z/20\Z \arrow[u, no head]                                        & \Z/30\Z \arrow[lu, no head] \arrow[ld, no head]                   &                                               \\
+        4\Z \arrow[u, no head] \arrow[ru, no head] & 6\Z \arrow[lu, no head] \arrow[ru, no head]                    & 10\Z \arrow[lu, no head] \arrow[u, no head]                   & 15\Z \arrow[lu, no head]                   & \Z/4\Z \arrow[u, no head] \arrow[ru, no head] & \Z/6\Z \arrow[lu, no head]                                        & \Z/10\Z \arrow[u, no head] \arrow[lu, no head]                    & \Z/15\Z \arrow[lu, no head]                   \\
+        & 2\Z \arrow[lu, no head] \arrow[u, no head] \arrow[ru, no head] & 3\Z \arrow[lu, no head] \arrow[ru, no head]                   & 5\Z \arrow[lu, no head] \arrow[u, no head] &                                               & \Z/2\Z \arrow[lu, no head] \arrow[u, no head] \arrow[ru, no head] & \Z/3\Z \arrow[u, no head] \arrow[ru, no head] \arrow[lu, no head] & \Z/5\Z \arrow[lu, no head] \arrow[u, no head] \\
+        &                                                                & \Z \arrow[lu, no head] \arrow[u, no head] \arrow[ru, no head] &                                            &                                               &                                                                   & \{e\} \arrow[lu, no head] \arrow[u, no head] \arrow[ru, no head]  &
+      \end{tikzcd}
+    \end{center}
+  \end{solution}
+
+  \begin{question}
+    Let \(Z\) denote the centre of \(SL(n, K)\). Then the \indx{projective special linear group} \(PSL(n, K)\) is defined to be the quotient group \(SL(n, K) / Z\). Find the centre \(Z\) of \(SL(2, \Z_{3})\). What is the order of \(PSL(2, \Z_{3})\).
+  \end{question}
+
+  \begin{solution}
+    Recall that the centre of a group is exactly the set of elements that commute with all other elements in the groups. The centre of \(SL(2, \Z_{3})\) consists of all matrices... % TODO:finish this solution
+  \end{solution}
+
+  \begin{question}
+    Show that is \(G\) is a group, \(N\) is a subgroup of \(G\) contained in the centre of \(G\) and \(G/N\) is cyclic, then \(G\) is abelian.
+  \end{question}
+
+  \begin{solution}
+    Let \(g, h \in G\). Then as cosets partition \(G\), \(g \in aN\) and \(h \in bN\), for some \(a,b \in G\). As \(G/N\) is cyclic, \(aN = k^{j}N\) and \(bN = k^{i}N\) for some \(k \in G\) and \(i,j \in \N\). Then,
+    \begin{align*}
+      gh &= k^{j}n_{1} k^{i}n_{2}, \\
+         &= k^{j} k^{i}n_{1} n_{2} & n_{1} \in Z(G), \\
+         &= k^{j} k^{i}n_{2} n_{1} & n_{2} \in Z(G), \\
+         &= k^{i} k^{j}n_{2} n_{1}, \\
+         &= k^{i} n_{2} k^{j} n_{1} & n_{2} \in Z(G) \\
+         &= hg.
+    \end{align*}
+    Therefore, \(G\) is abelian.
+  \end{solution}
+\end{questions}
+
 
 
 %%% Local Variables:
