@@ -788,7 +788,7 @@ These two propositions allow us to prove the following:
 \begin{proof}
   Injectivity of the function follows immediately from Proposition~\ref{prp:group-theory:normal-subgroups-pullback}.
   %
-  Part 1 of Proposition~\ref{prp:group-theory:preimage-of-subgroups-of-G/N} shows that the function is surjective (since \(\theta\theta^{1}K = K\) and \(N \subset \theta^{-1}(K)\)).
+  Part 1 of Proposition~\ref{prp:group-theory:preimage-of-subgroups-of-G/N} shows that the function is surjective (since \(\theta\theta^{-1}K = K\) and \(N \subset \theta^{-1}(K)\)).
   %
   Part 2 of Proposition~\ref{prp:group-theory:normal-subgroups-pullback} shows us that normal subgroups match up with normal subgroups.
   %
@@ -801,6 +801,14 @@ These two propositions allow us to prove the following:
   This means \(a = bn \in B\), for some \(n \in N\).
   %
   Hence, \(a \in B\) and \(A \subseteq B\).
+\end{proof}
+
+\begin{lemma}\label{lem:group-theory:index-of-quotients}
+  Let \(G\) be a group, \(N, H\) subgroups of \(G\) with \(N \triangleleft G\) and \(N \leq H \leq G\). Then \([G : H] = [G/N : \theta(H)]\).
+\end{lemma}
+
+\begin{proof}
+  The index \([G : H] = |G| / |H|\), and \([G/N : \theta(H)] = |G/N| / |\theta(H)| = |G| / (|\theta(H)| \cdot |N|)\). We need to show that \([H : N] = \theta(H)\), as \(|H| = [H : N] \cdot |N|\). But, \(\theta(H)\) is \(\{hN \mid h \in H\}\) which is exactly the set of cosets of \(N\) in \(H\) and so has size \([H:N]\).
 \end{proof}
 
 \begin{example}
@@ -1069,7 +1077,7 @@ We have enough to prove~\nameref{thm:group-theory:cauchys-theorem}.
 
 % TODO Add cyclic group example, with proof that it has no non-trivial subgroups.
 \begin{proof}
-  \textbf{Proof of~\nameref{thm:group-theory:cauchys-theorem},Theorem~\ref{thm:group-theory:cauchys-theorem}}.
+  \textbf{Proof of~\nameref{thm:group-theory:cauchys-theorem}, Theorem~\ref{thm:group-theory:cauchys-theorem}}.
 
   Let \(G\) be a group with order \(n\), and let \(p\) be a prime number that divides \(n\). Our goal is to show that \(G\) contains an element of order \(p\), which generates a subgroup of order \(p\) in \(G\). Define the set \(X \coloneqq \{(g_{0}, \ldots, g_{n-1}) \mid \prod_{i=0}^{n-1}g_{i} = e\}\). The cyclic group of order \(p\), \(C_{p}\), acts on this group by \(m \cdot (g_{i}) \coloneqq (g_{i + m \mod n})\). Our goal is to show that there must exist a non-identity element which is fixed by this group action.
 
@@ -1115,8 +1123,16 @@ We have enough to prove~\nameref{thm:group-theory:cauchys-theorem}.
 
 
 \begin{definition}
-  Let \(p\) be a prime number. A \indx{\(p\)-group} is a group \(G\) such that each element has order a power of \(p\). If \(|G|\) is finite, then \(G\) is a \(p\)-group if and only if \(|G|\) is a power of \(p\), by~\nameref{thm:group-theory:cauchys-theorem}.
+  Let \(p\) be a prime number. A \indx{\(p\)-group} is a group \(G\) such that each element has order a power of \(p\).
 \end{definition}
+
+\begin{lemma}\label{lem:group-theory:p-group-has-order-p^n}
+  If \(|G|\) is finite, then \(G\) is a \(p\)-group if and only if \(|G|\) is a power of \(p\).
+\end{lemma}
+
+\begin{proof}
+  If \(|G|\) is a power of \(p\), by~\nameref{thm:group-theory:Lagranges-theorem}, for all \(g \in G\), \(\langle g \rangle\) has order a power of \(p\) and hence so does \(g\). Suppose for contradiction that \(q\) is a prime not equal to \(p\) that divides \(|G|\). Then~\nameref{thm:group-theory:cauchys-theorem} determines there must be a subgroup of order \(q\), and as \(q\) is prime, \(G\) must have an element of order \(q\), which is a contradiction.
+\end{proof}
 
 
 \begin{theorem}\label{thm:group-theory:p-group-non-trivial-centre}
@@ -1800,6 +1816,33 @@ Solvability is related to composition series.
          &= hg.
     \end{align*}
     Therefore, \(G\) is abelian.
+  \end{solution}
+
+  \begin{question}
+    Show that \(G \times \{e_{H}\}\) is a normal subgroup of \(G \times H\) that is isomorphic to \(G\) and that the quotient group \((G \times H)/G \times \{e_{H}\}\).
+  \end{question}
+
+  \begin{solution}
+    To see that \(G \times \{e_{H}\}\) is normal, we see that it is the kernel of the map \((g,h) \mapsto h\) from \(G \times H \to H\). It is clear that it is isomorphic to \(G\) and that the map is surjective. By the~\nameref{thm:group-theory:first-isomorphism-theorem}, \((g \times H) / G \times \{e_{H}\} \iso H\).
+  \end{solution}
+\end{questions}
+
+\subsection{Sylow theory}
+\begin{questions}
+  \begin{question}
+    Let \(p\) be a prime and \(G\) a \(p\)-group. Show that \(G\) contains an element of order \(p\).
+  \end{question}
+
+  \begin{solution}
+    By Lemma~\ref{lem:group-theory:p-group-has-order-p^n}, \(|G| = p^{n}\) for some \(n \in \N\). Then, by~\nameref{thm:group-theory:cauchys-theorem}, \(G\) has a subgroup and hence an element of order \(p\).
+  \end{solution}
+
+  \begin{question}
+    Let \(|G| = p^{n}\). Show that \(G\) contains a normal subgroup of order \(p^{i}\) for each \(i = 0, 1, \ldots, n\).
+  \end{question}
+
+  \begin{solution}
+    This is true when \(n = 1\), so we proceed by strong induction. Consider \(G\) to have order \(p^{n}\). By theorem~\ref{thm:group-theory:p-group-non-trivial-centre}, \(G\) has a non-trivial centre, which must have order \(p^{m}\) for some \(0 < m < n\). By induction hypothesis, there are normal subgroups of orders \(p^{1}, \ldots, p^{m}\) in \(Z(G)\) which are therefore normal subgroups of \(G\), since all elements of \(Z(G)\) commute with all elements in \(G\). The quotient group \(G / Z(G)\) then has order \(p^{n - m}\), and so by induction hypothesis has normal subgroups of order \(p^{1}, \ldots, p^{n-m}\). By the~\nameref{thm:group-theory:the-correspondence-theorem}, these normal subgroups correspond to normal subgroups of \(G\) containing \(Z(G)\). Let \(H_{i}\) be the normal subgroup of \(G/Z(G)\) of order \(p^{i}\). Then by~\nameref{thm:group-theory:Lagranges-theorem}, \(p^{n-m} = [G/Z(G) : H_{i}] p^{i}\), and so \([G/Z(G) : H_{i}] = p^{n-m-i}\). By lemma \ref{lem:group-theory:index-of-quotients}, we have that \([G/Z(G) : H_{i}] = [G : \hat{H_{i}}] = p^{n-m-i}\), we have \(|\hat{H_{i}}| = p^{n - (n - m - i)} = p^{m + i}\) for \(i = 1, \ldots n-m\). This constructs all of the required normal subgroups of \(G\) groups.
   \end{solution}
 \end{questions}
 
