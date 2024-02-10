@@ -1,8 +1,8 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhead[c]{}
-\fancyhead[l]{\thechapter}
-\fancyhead[r]{\thesection}
+\fancyhead[l]{\ifnum\value{chapter}>0 \leftmark\fi}
+\fancyhead[r]{\ifnum\value{section}>0 \rightmark\fi}
 
 \fancyfoot[l]{}
 \fancyfoot[c]{\thepage}

@@ -1,5 +1,219 @@
 \chapter{Real Analysis}\label{cha:intr-real-analys}
 
+Real analysis is the study of real numbers. Analysis as a whole is one of main disciplines in pure mathematics and is the foundation for the study of both calculus and probability. As such, its results penetrate many other fields. Its proof style is very different to that of standard algebraic proofs.
+
+\section{The Real Numbers}
+We won't give a construction of the real numbers right now. It is more important to understand the properties of the real numbers and to work with them. As such, we take for granted that the real numbers form a \emph{field} under multiplication and addition. The real numbers are also \emph{ordered} which is to say that there is a binary relation \(<\) on the real numbers satisfying:
+
+\begin{itemize}
+\item Trichotomy property: For all \(a, b\) in \(\R\), exactly on of the following holds:
+  \begin{itemize}
+    \item \(a < b\),
+    \item \(b < a\),
+    \item \(a = b\).
+  \end{itemize}
+
+\item Transitive property: If \(a < b\) and \(b < c\) then \(a < c\).
+
+\item Additive property: If \(a < b\) then for all \(c \in \R\), \(a + c < b + c\).
+
+\item Multiplicative properties: If \(a < b\) then if \(c > 0\) then \(ac < bc\), else if \(c < 0\) then \(bc < ac\).
+\end{itemize}
+
+\begin{definition}
+  Let \(a \in \R\), then we say \(a\) is \indx{positive} if \(a > 0\). \(a\) is \indx{negative} if \(a < 0\) and \(a\) is \indx{nonnegative} if \(a \geq 0\).
+\end{definition}
+
+\begin{definition}
+  The \indx{absolute value} is defined to be the following function:
+  \begin{align*}
+    |-| &: \R \to \R_{\geq 0} \\
+    a &\mapsto \begin{cases}
+    a & a \geq 0, \\
+    -a & a < 0.
+    \end{cases}
+  \end{align*}
+\end{definition}
+
+\begin{theorem}
+  The absolute value function satisfies the following properties:
+  \begin{itemize}
+    \item Multiplicative: \(|ab| = |a||b|\),
+    \item For all \(a \in \R\) and \(M \geq 0\), \(|a| \leq M\) if and only if \(-M \leq a \leq M\).
+    \item Positive definiteness: \(|a| \geq 0\) and \(|a| = 0\) if and only if \(a = 0\).
+    \item Symmetry: \(|a - b| = |b - a\), for all \(a, b \in \R\).
+    \item Triangle inequality: \(|a + b| \leq |a| + |b|\), for all \(a, b \in \R\).
+  \end{itemize}
+\end{theorem}
+
+The triangle inequality is by far the most subtle and confusing property of the absolute value.
+\begin{proof}[Proof of the Triangle inequality]
+  It is clear that for all \(a \in \R\), \(|a| = \max(a, -a)\).
+
+  If \(a + b \geq 0\) then \(|a + b| = a + b \leq |a| + b \leq |a| + |b|\).
+
+  Similarly, if \(a + b < 0\) then \(|a + b| = -a -b \leq |a| -b \leq |a| + |b|\).
+\end{proof}
+
+\begin{definition}
+  Let \(a, b \in \R\). The following are intervals:
+  \begin{itemize}
+  \item Closed intervals:
+    \begin{itemize}
+    \item \([a,b] \coloneqq \{x \in \R \mid a \leq x \leq b\}\);
+    \item \([a, \infty) \coloneqq \{x \in \R \mid a \leq x\}\);
+    \item \((-\infty, b] \coloneqq \{x \in \R \mid x \leq b\}\);
+    \item \((-\infty, \infty) \coloneqq \R\);
+    \end{itemize}
+
+  \item Open intervals:
+    \begin{itemize}
+    \item \((a,b) \coloneqq \{x \in \R \mid a < x < b\}\);
+    \item \([a, \infty) \coloneqq \{x \in \R \mid a < x\}\);
+    \item \((-\infty, b] \coloneqq \{x \in \R \mid x < b\}\);
+    \item \((-\infty, \infty) \coloneqq \R\);
+    \end{itemize}
+
+  \item Half-open intervals:
+    \begin{itemize}
+    \item \((a,b] \coloneqq \{x \in \R \mid a < x \leq b\}\);
+    \item \([a,b) \coloneqq \{x \in \R \mid a \leq x < b\}\);
+    \end{itemize}
+  \end{itemize}
+\end{definition}
+
+Intervals correspond to line segments in the real numbers, which either contain both, one or none of their end points.
+
+\begin{theorem}
+  Let \(x, y \in \R\). Then the following hold:
+  \begin{enumerate}
+    \item \(x < y + \epsilon\) for all \(\epsilon > 0\) if and only if \(x \leq y\);
+    \item \(x > y - \epsilon\) for all \(\epsilon > 0\) if and only if \(y \leq x\);
+    \item \(|x| < \epsilon\) for all \(\epsilon > 0\) if and only if \(x = 0\).
+  \end{enumerate}
+\end{theorem}
+
+These properties are the foundational properties used in almost all analytical arguments.
+
+\begin{proof}
+  The proofs are fairly similar. We prove 1 by contradiction. Assume that \(x < y + \epsilon\) and \(y < x\). Then, setting \(\epsilon_{0} = x - y > 0\), we have that \(x < y + x - y = x\). Part 2 follows from part 1. For part 3, if \(|x| < \epsilon\), then \(-\epsilon < x < \epsilon\). Applying parts 1 and 2 with \(y = 0\), we then have \(0 \leq x \leq 0\), and so by the trichotomy principle, \(x = 0\).
+\end{proof}
+
+
+\begin{definition}
+  A number \(x\) is the \indx{least element} of a set \(E \subseteq \R\) when \(x \in E\) and \(x \leq a\) for all \(a \in E\).
+
+  A set \(X\) satisfies the \indx{well ordering principle} if each non-empty subset of \(X\) has a least element.
+\end{definition}
+
+\begin{example}
+
+  \begin{itemize}
+  \item Any finite, nonempty subset of \(\R\) is well ordered;
+  \item Every nonempty subset of \(\N\) is well ordered;
+  \item Neither \(\Z\), \(\Q\) nor \(\R\) are well ordered.
+  \end{itemize}
+\end{example}
+
+\begin{definition}
+  Let \(E \subseteq \R\) be nonempty.
+  \begin{itemize}
+  \item The set \(E\) is said to be \indx{bounded above} if there is \(M \in R\) such that for all \(a \in E\), \(a \leq M\).
+  \item The number \(M\) is called an \indx{upper bound} of the set \(E\) if \(a \leq M\) for all \(a \in E\).
+  \item The number \(s\) is called the \indx{supremum} of the set \(E\) if
+    \begin{itemize}
+    \item \(s\) is an upper bound of \(E\);
+    \item \(s \leq M\) for all upper bounds \(M\) of the set \(E\).
+    \end{itemize}
+  \end{itemize}
+
+  We denote the supremum of E by \(\sup E\).
+\end{definition}
+
+\begin{categorybox}
+  The supremum is an example of a categorical colimit (in fact, a coproduct). As such we have for free that the supremum is unique up to isomorphism, which in this case is equality.
+\end{categorybox}
+
+\begin{theorem}[Approximation property for suprema]
+  Let the set \(E \subset \R\) have a supremum. Then, for any \(\epsilon > 0\), there exists \(a \in E\) such that \(\sup E - \epsilon < a \leq \sup E\).
+\end{theorem}
+
+\begin{proof}
+  We prove this by contradiction. Suppose that there exists \(\epsilon > 0\) such that for all \(a \in E\), either \(\sup E - \epsilon \geq a\) or \(a > \sup E\). As \(E\) is nonempty (implied by it having a supremum), for all \(a \in E\), we must have \(a \leq \sup E\), so this option can't be true. This means that we must have \(\sup E - \epsilon \geq a\), for all \(a \in E\). But this means that \(\sup E - \epsilon\) is an upper bound of \(E\) which is smaller than \(\sup E\), contradicting the minimality of \(\sup E\).
+\end{proof}
+
+The set of real numbers also satisfy a property known as completeness. A version of completeness says that if \(E \subseteq \R\), is nonempty and bounded above, then \(E\) has a finite supremum.
+
+\begin{theorem}[Archimedean Principle]\label{thm:real-analysis:archimedean-principle}
+  For all \(a, b \in \R_{> 0}\), there exists \(n \in \N\) such that \(b < na\).
+\end{theorem}
+
+\begin{proof}
+  If \(b \leq a\) then the result is trivial, so suppose \(a < b\). Define \(E = \{ k \in \N \mid ak < b \}\) and notice that this set is bounded above by \(\lceil \frac b a \rceil\). The completeness property says that \(\sup E\) must exists, and since \(E \subset \N\), \(\sup E \in E\). Defining \(n = \sup E + 1\) gives \(b < n a\), since if \((sup E\) is the greatest integer \(k\) with \(ak < b\).
+\end{proof}
+
+\begin{example}
+  For any \(r > 0\), there exists \(n \in \N\) such that \(0 < \frac 1 n < r\). This follows from~\ref{thm:real-analysis:archimedean-principle} with \(b = 1\) and \(a = r\).
+\end{example}
+
+\begin{theorem}[Density of the rational numbers]\label{thm:real-analysis:density-of-rational-numbers}
+  Let \(a < b\) be real numbers. Then there is \(q \in \Q\) such that \(q \in (a,b)\).
+\end{theorem}
+
+\begin{proof}
+  This follows from~\ref{thm:real-analysis:archimedean-principle} --- there exists \(n \in \N\) such that \(\frac 1 n < b - a\).
+
+  Case 1. If \(b > 0\), then define \(E = \{k \in \N \mid b \leq \frac k n \}\). Since \(E\) must be nonempty (by \ref{thm:real-analysis:archimedean-principle}), the well ordering principle says it has a least element, \(k_{0}\). Define \(m = k_{0} - 1\) and \(q = \frac m n\). By definition, \(m \not \in E\). Either \(m \leq 0\) or \(b > \frac m n = q\). Either way, \(q < b\). We then have the following:
+  \[a = b - (b - a) < \frac{k_{0}}{n} - \frac 1 n = q < b.\]
+
+  Case 2. If \(b \leq 0\), there is an integer \(k\) such that \(k + b > 0\). Then by case 1, there is a \(q \in \Q\) such that \(a + k < q < b +k\) and so \(a < q - k < b\) with \(q -k \in \Q\), as required.
+\end{proof}
+
+\begin{definition}
+  Let \(E \subseteq \R\) be nonempty.
+  \begin{itemize}
+    \item The set \(E\) is said to be \indx{bounded below} if there is \(m \in \R\) such that \(m \leq a\) for all \(a \in E\).
+    \item A number \(m\) is called a lower bound of the set \(E\) if \(m \leq a\) for all \(a \in E\).
+    \item  A number \(t\) is called the \indx{infimum} of \(E\) if:
+      \begin{itemize}
+        \item \(t\) is a lower bound of \(E\),
+        \item \(m < t\) for all lower bounds \(m\) of the set \(E\).
+      \end{itemize}
+  \end{itemize}
+
+  We denote the infimum of \(E\) by \(\inf E\).
+\end{definition}
+
+\begin{categorybox}
+  The infimum is an example of a categorical limit (in fact, a product). As such we have for free that the infimum is unique up to isomorphism, which in this case is equality.
+\end{categorybox}
+
+\begin{theorem}
+  Let \(E \subseteq \R\) be nonempty.
+  \begin{itemize}
+  \item \(E\) has a supremum if and only if \(-E\) has an infimum. \(\inf (-E) = - \sup E\).
+  \item \(E\) has a infimum if and only if \(E\) has an supremum. \(\sup (-E) = - \inf E\).
+  \end{itemize}
+\end{theorem}
+
+\begin{theorem}[Monotone Property]
+  Let \(A \subseteq B\) are two nonempty subsets of \(\R\), If \(B\) is bounded above then \(\sup A \leq \sup B\). If \(B\) is bounded below then \(\inf A \geq \inf B\).
+\end{theorem}
+
+\begin{proof}
+  We give a categorical proof of this theorem. Take \(R\) as a poset category and take \(A, B\) as discrete categories. We then have the following commuting diagram, where all of the maps are inclusions:
+  \begin{centre}
+    \begin{tikzcd}
+A \arrow[rd, "D"] \arrow[d, "i"'] &    \\
+B \arrow[r, "E"']                 & \R
+\end{tikzcd}
+  \end{centre}
+
+  Assuming that \(B\) is bounded below means that both \(A\) and \(B\) have infimums, and hence \(D\) and \(E\) both have limits existing. To show that \(\inf B \leq \inf A\), all we need to do is construct a cone on \(D\) with zenith \(\lim{}{E}\). This is simple --- let \(\beta_{b} : \lim{}{E} \rightarrow E b\) be the limit cone on \(E\). Define \(\gamma_{a} = \beta_{Fa}: \lim{}{E} \rightarrow EF (a) = D a\), which is then the required cone on \(D\), and hence by the universal property of limits, gives a map \(\lim{}{E} \rightarrow \lim{}{D}\) and so \(\inf B \leq \inf A\). By duality, we get that \(\sup A \leq \sup B\), since supremums correspond to coproducts.
+\end{proof}
+
+\section{Real sequences}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../../main"
