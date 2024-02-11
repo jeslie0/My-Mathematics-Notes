@@ -210,9 +210,97 @@ B \arrow[r, "E"']                 & \R
   \end{centre}
 
   Assuming that \(B\) is bounded below means that both \(A\) and \(B\) have infimums, and hence \(D\) and \(E\) both have limits existing. To show that \(\inf B \leq \inf A\), all we need to do is construct a cone on \(D\) with zenith \(\lim{}{E}\). This is simple --- let \(\beta_{b} : \lim{}{E} \rightarrow E b\) be the limit cone on \(E\). Define \(\gamma_{a} = \beta_{Fa}: \lim{}{E} \rightarrow EF (a) = D a\), which is then the required cone on \(D\), and hence by the universal property of limits, gives a map \(\lim{}{E} \rightarrow \lim{}{D}\) and so \(\inf B \leq \inf A\). By duality, we get that \(\sup A \leq \sup B\), since supremums correspond to coproducts.
+
+  This proof translates into the following simpler proof: \(\inf B\) is less than all elements of \(A\), so it is a lower bound for \(A\). It must be less than or equal \(\inf A\), by definition.
 \end{proof}
 
 \section{Sequences of real numbers}
+
+\begin{definition}
+  A \indx{real-valued sequence} is a function \(x : \N \to \R\), typically denoted as \((x_{n})\).
+\end{definition}
+
+\begin{definition}
+  A sequence of real numbers \((x_{n})\) \indx{converges} to \(a \in \R\) if for every \(\epsilon > 0\), there exists \(N \in \N\) such that for all \(n \geq N\), \(|x_{n} - a| < \epsilon\).
+
+  We use the following phrases interchangeably:
+  \begin{itemize}
+    \item \((x_{n})\) converges to \(a\);
+    \item \(x_{n}\) converges to \(a\);
+    \item \(x_{n} \to a\) as \(n \to \infty\);
+    \item \(\lim{n \to \infty}{x_{n}} = a\);
+    \item the \indx{limit} of \((x_{n})\) exists and is equal to \(a\).
+  \end{itemize}
+
+  We say a sequence of real numbers \(x_{n}\) \indx{has no limit} if there is no real number \(a\) such that \(x_{n}\) converges to \(a\).
+\end{definition}
+
+This is the first ``analytical'' definition one finds in analysis. It captures the idea of a sequence of numbers approaching a value as its input grows.
+
+\begin{example}
+  The sequence \({(1/n)}_{n \in \N}\) converges to \(0\). For any \(\epsilon > 0\), the~\nameref{thm:real-analysis:archimedean-principle} gives us the existence of an \(N \in \N\) such that \(1 < N \epsilon\). Therefore, if \(n > N\),
+  \[\left|\frac 1 n - 0 \right| = \frac 1 n \leq \frac 1 N < \epsilon.\]
+\end{example}
+
+\begin{example}
+  The sequence \(x_{n} = {(-1)}^{n}\) has no limit. Suppose that there does exist an \(a \in \R\) such that \(x_{n} \to a\). Setting \(\epsilon = 1\), there is some \(N\) such that for all \(n \geq N\), \(\left| (-1)^{n} - a \right| < 1\). When \(n\) is odd, we have that \(|1 + a| < 1\) and when \(n\) is even, we have \(|1 - a| < 1\). Then, by using the triangle inequality, we get the following contradiction
+  \[2 = | 1 + 1 | = | (1 + a) + (1 - a) | \leq |1 + a| + |1 - a| < 2.\]
+\end{example}
+
+\begin{theorem}
+  A sequence can have at most one limit.
+\end{theorem}
+
+\begin{proof}
+  Suppose that \(x_{n}\) is a sequence and converges to both \(a, b \in \R\). Then, for all \(\epsilon > 0\), there exist constants \(N_{1}, N_{2} \in \N\) such that
+  \begin{align*}
+    n \geq N_{1} &\implies |x_{n} - a | < \epsilon / 2 \\
+    n \geq N_{2} &\implies |x_{n} - b | < \epsilon / 2 \\
+  \end{align*}
+
+  Therefore, if \(n \geq \max(N_{1}, N_{2})\), then
+  \[|b - a| = |(b - x_{n}) + (x_{n} - a)| \leq |b - x_{n}| + |x_{n} - a| < \epsilon / 2 + \epsilon / 2 = \epsilon. \]
+
+  So, for all \(\epsilon > 0\), \(|b - a| < \epsilon\) and so \(b = a\).
+\end{proof}
+
+
+\begin{definition}
+  A sequence \(y_{n}\) is a subsequence of \(x_{n}\) if there is a strictly increasing sequence of natural numbers \(n_{k}\) such that for each \(k \in \N\), \(y_{k} = x_{n_{k}}\).
+\end{definition}
+
+A subsequence of \(x_{n}\) can be thought of as a sequence obtained by removing some of the values of \(x_{n}\).
+
+
+\begin{lemma}
+  If \(y_{n}\) is a subsequence of \(x_{n}\) and \(x_{n}\) converges to \(a\), \(y_{n}\) also converges to \(a\).
+\end{lemma}
+
+\begin{proof}
+  Let \(\epsilon > 0\). There exists \(N\) such that if \(n \geq N\), \(|x_{n} - a| < \epsilon\). This means that such an \(N\) also works for \(y_{n}\), as if \(k > N\), \(|y_{k} - a| = |x_{n_{k}} - a|\). As \(n_{k}\) is strictly increasing \(n_{k} \geq k \geq N\) and so \(|x_{n_{k}} - a| < \epsilon\).
+\end{proof}
+
+\begin{definition}
+  Let \(x_{n}\) be a sequence of real numbers.
+  \begin{itemize}
+  \item \(x_{n}\) is \indx{bounded above} if for all \(n \in \N\), there exists \(M \in \R\) such that \(x_{n} \leq M\).
+  \item \(x_{n}\) is \indx{bounded below} if for all \(n \in \N\), there exists \(m \in \R\) such that \(x_{n} \geq m\).
+  \item \(x_{n}\) is \indx{bounded} if it is both bounded above and below.
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}
+  Every convergent sequence is bounded.
+\end{theorem}
+
+\begin{proof}
+  If \(x_{n}\) converges to \(a\), then there is some \(N \in \N\) such that if \(n \geq N\) then \(|x_{n} - a| < 1\). This means that \(-1 + a < x_{n} < 1 + a\), and so for all \(n > N\), \(x_{n}\) is bounded above and below. The sequence \(x_{n}\) then has an upper bound given by \(\sup \{x_{n} | 0 \leq n < N\} \cup \{1 + a\}\) and a lower bound given by \(\inf \{x_{n} | 0 \leq n \leq N\} \cup \{-1 + a\}\).
+\end{proof}
+
+
+\subsection{Limit theorems}
+
+
 
 \section{Continuity}
 
