@@ -134,7 +134,7 @@ These properties are the foundational properties used in almost all analytical a
   The supremum is an example of a categorical colimit (in fact, a coproduct). As such we have for free that the supremum is unique up to isomorphism, which in this case is equality.
 \end{categorybox}
 
-\begin{theorem}[Approximation property for suprema]
+\begin{theorem}[Approximation property for suprema]\label{thm:real-analysis:approximation-property-for-suprema}
   Let the set \(E \subset \R\) have a supremum. Then, for any \(\epsilon > 0\), there exists \(a \in E\) such that \(\sup E - \epsilon < a \leq \sup E\).
 \end{theorem}
 
@@ -300,6 +300,84 @@ A subsequence of \(x_{n}\) can be thought of as a sequence obtained by removing 
 
 \subsection{Limit theorems}
 
+\begin{theorem}\label{thm:real-analysis:squeeze-theorem}
+  Suppose that \((x_{n})\), \((y_{n})\) and \((z_{n})\) are real sequences. Then
+  \begin{itemize}
+  \item If both \(x_{n}\) and \(y_{n}\) converge to \(a \in \R\) and \(x_{n} \leq z_{n} \leq y_{n}\) for all \(n \geq N\) (for some \(N \in \N\)), then \((z_{n})\) converges to \(a\).
+
+  \item If \(x_{n}\) converges to 0 and \((y_{n})\) is bounded, then the product \(x_{n}y_{n}\) converges to 0.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  Let \(\epsilon\) be greater than 0. Then there exists natural numbers \(N_{1}, N_{2}\) such that
+  \begin{itemize}
+  \item if \(n \geq N_{1}\) then \(|x_{n} - a | < \epsilon\) and \(-\epsilon < x_{n} - a < \epsilon\);
+  \item if \(n \geq N_{2}\) then \(|z_{n} - a | < \epsilon\) and \(-\epsilon < z_{n} - a < \epsilon\).
+  \end{itemize}
+
+  Let \(N' = \max(N_{1}, N_{2}, N)\). Then
+  \[x_{n} \leq y_{n} \leq z_{n} \implies x_{n} - a \leq y_{n} - a \leq z_{n} - a \implies -\epsilon < y_{n} - a < \epsilon \implies |y_{n} - a | < \epsilon.\]
+
+   The second part comes from \(y_{n}\) being bounded means that there are constants \(m, M\) such that \(m \leq y_{n} \leq M\), for all \(n \in \N\). Then, \(mx_{n} \leq x_{n}y_{n} \leq Mx_{n}\) and both the left and right hand-side of the inequalities converge to 0, so the squeeze-theorem gives that \(x_{n}y_{n}\) converges to 0.
+\end{proof}
+
+\begin{theorem}
+  Let \(E \subset \R\). If \(E\) has a finite supremum, then there is a sequence \(x_{n}\) in \(E\) such that \(x_{n} \to \sup E\) as \(n \to \infty\). Likewise, if \(E\) has a finite infimum, then there is a sequence \(y_{n} \in E\) such that \(y_{n} \to \inf E\) as \(n \to \infty\).
+\end{theorem}
+
+\begin{proof}
+  By Theorem~\ref{thm:real-analysis:approximation-property-for-suprema}, for all \(n \in \N\), there exists \(x_{n} \in E\) such that \(\sup E - \frac{1}{n} \leq x_{n} \leq \sup E\). Then, by the~\nameref{thm:real-analysis:squeeze-theorem}, \(x_{n} \to \infty\). The case for the infimum is dual.
+\end{proof}
+
+The next theorem gives useful algebraic properties of limits.
+
+\begin{theorem}
+  Suppose that \((x_{n})\) and \((y_{n})\) are real sequences that both converge, and \(\alpha \in \R\). Then the following hold:
+  \begin{enumerate}
+  \item \(\lim{n \to \infty}{x_{n} + y_{n}} = \lim{n \to \infty} {x_{n}} + \lim{n \to \infty}{y_{n}}\);
+  \item \(\lim{n \to \infty}{\alpha x_{n}} = \alpha\lim{n \to \infty}{x_{n}}\);
+  \item \(\lim{n \to \infty}{x_{n} \cdot y_{n}} = \left(\lim{n \to \infty}{x_{n}}\right) \cdot \left(\lim{n \to \infty}{y_{n}}\right)\).
+  \item If \(\lim{n \to \infty}{y_{n}} \neq 0\) and \(y_{n} \neq 0\) for all \(n\), then \(\lim{n \to \infty}{\frac{x_{n}{y_{n}}}} = \frac{\lim{n \to \infty}{x_{n}}}{\lim{n \to \infty}{y_{n}}}\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  We prove part 1 as all of the cases are very similar. Suppose that \(x_{n} \to a\) and \(y_{n} \to b\) as \(n \to \infty\).
+  \begin{enumerate}
+  \item Let \(\epsilon > 0\). Then there is a constant \(N\) such that if \(n \geq N\) then \(|x_{n} - a| < \frac \epsilon 2\) and \(|y_{n} - b| < \frac \epsilon 2\) (such an \(N\) is chosen to be the maximum of values that convergence of both \(x_{n}\) and \(y_{n}\) gives us). Then we have
+    \[|x_{n} + y_{n} - (a + b) | \leq |x_{n} - a | + |y_{n} - b | \leq \epsilon,\]
+    as required.
+  \end{enumerate}
+\end{proof}
+
+\subsubsection{Limits in the extended reals}\label{sec:real-analysis:limits-extend-reals}
+% TODO Maybe add theorems about the extended reals.
+
+
+\subsubsection{Bolzano-Weierstrass}\label{sec:real-analysis:bolzano-weierstrass}
+We now work up to the Bolzano-Weierstrass theorem that states that every bounded sequence has a convergent subsequence.
+
+\subsection{Cauchy sequences}\label{sec:real-analysis:cauchy-sequences}
+
+\begin{definition}
+  Let \((x_{N})\) be a sequence of real numbers.
+  \begin{enumerate}
+  \item \((x_{n})\) is \indx{increasing} if \(x_{i} \leq x_{j}\) for all \(i < j\).
+  \item \((x_{n})\) is \indx{strictly increasing} if \(x_{i} < x_{j}\) for all \(i < j\).
+  \item \((x_{n})\) is \indx{decreasing} if \(x_{i} \geq x_{j}\) for all \(i < j\).
+  \item \((x_{n})\) is \indx{strictly decreasing} if \(x_{i} > x_{j}\) for all \(i < j\).
+  \item \((x_{n})\) is \indx{monotone} if it is either increasing or decreasing.
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Monotone Convergence Theorem]\label{thm:real-analysis:monotone-convergence-theorem}
+  If \((x_{n})\) is increasing and bounded above, or is decreasing and bounded below, then \(x_{n}\) is convergent.
+\end{theorem}
+
+\begin{proof}
+% TODO
+\end{proof}
 
 
 \section{Continuity}
