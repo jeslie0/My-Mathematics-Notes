@@ -1164,6 +1164,28 @@ We have enough to prove~\nameref{thm:group-theory:cauchys-theorem}.
   By Theorem~\ref{thm:group-theory:p-group-non-trivial-centre}, \(G\) has a non-trivial centre, and so \(|Z(G)|\) is equal to \(p\) or \(p^{2}\). If it equals \(p^{2}\), then \(G\) is abelian, so assume the order of the centre is \(p\). Since \(Z(G)\) is normal in \(G\), we can quotient by it and get that \(G/Z(G)\) has order \(p\) and is therefore cyclic. By Lemma~\ref{lem:group-theory:cyclic-centre-implies-abelian}, \(G\) must be abelian.
 \end{proof}
 
+\subsubsection{P\'olya counting}\label{sec:group-theory:polya-counting}
+Before moving on to Sylow theory, it is worth looking at a beautiful application of group theory.
+
+\begin{theorem}[P\'olya Enumeration Theorem] \label{thm:group-theory:polya-enumeration-theorem}
+  Let \(G\) be a finite group acting on a finite set \(X\). For \(g \in G\), define \(\operatorname{Fix}(g) \coloneqq \{ x \in X \mid g \cdot x = x \}\). Then, the number of orbit classes in \(X\) is equal to \(\frac{1}{|G|} \sum_{g \in G} |\operatorname{Fix}(g)|\).
+\end{theorem}
+
+\begin{proof}
+  Let \(Z \coloneqq \{(g, x) \mid g \cdot x = x\}\). We see that for each \(g \in G\), there are \(|\operatorname{Fix}(g)|\) possible \(x\), and so \(|Z| = \sum_{g \in G} |\operatorname{Fix}(G)|\). Also, for each \(x \in G\), there are \(|\Stab_{G}(x)|\) possible \(g \in G\) such that \(g \cdot x = x\), so \(|Z| = \sum_{x \in X} |\Stab_{G}(x)|\). By the \nameref{thm:group-theory:orbit-stabilizer} theorem, \(|\Stab_{G}(x)| = \frac{|G|}{|\Orb(x)|}\), and so \(\frac{1}{|G|} \sum_{g \in G} | \operatorname{Fix}(g)| = \sum_{x \in X} \frac{1}{|\Orb_{G}(x)|}\). But the right hand side of this is exactly equal to the number of orbits classes of the group action.
+\end{proof}
+
+\begin{example}
+  How many essentially different ways are there of colouring the vertices of a regular 7-gon, with three colours? By ``essentially different'', we mean we quotient out by orbits of the canonical action of \(D_{7}\). Our goal then, is to count the number of orbits of \(D_{7}\) acting on the set of all possible colourings of the 7-gon. There are \(3^{7} = 2187\) total possible colourings.
+  \begin{itemize}
+  \item The identity element fixes all coloured 7-gons, so \(|\operatorname{Fix}(e)| = 2187\);
+  \item Any of the 6 non-trivial rotations only fix a 7-gon if every node has the same colour as every other node, of which there are three such 7-gons.
+  \item Any of the reflections (of which there are 7) only fix a 7-gon if each node's opposite in the line of symmetry is the same colour as itself (with one elment being its own opposite). This means that each reflection fixes exactly \(3^{4} = 81\) 7-gons.
+  \end{itemize}
+
+  The total then, by the \nameref{thm:group-theory:polya-enumeration-theorem} is
+  \[\frac{2187 + 6 \times 3 + 7 \times 81}{14} = 198.\]
+\end{example}
 
 \subsection{The Sylow Theorems}
 
