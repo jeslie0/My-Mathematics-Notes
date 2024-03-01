@@ -353,12 +353,12 @@ The next theorem gives useful algebraic properties of limits.
 
 \subsubsection{Limits in the extended reals}\label{sec:real-analysis:limits-extend-reals}
 % TODO Maybe add theorems about the extended reals.
+To simply talking about convergence, we introduce the Extended Real Numbers. While having less algebraic properties, they do have nice analytic properties that allow us to talk about convergence at inifinity.
 
 
-\subsubsection{Bolzano-Weierstrass}\label{sec:real-analysis:bolzano-weierstrass}
+
+\subsection{Bolzano-Weierstrass}\label{sec:real-analysis:bolzano-weierstrass}
 We now work up to the Bolzano-Weierstrass theorem that states that every bounded sequence has a convergent subsequence.
-
-\subsection{Cauchy sequences}\label{sec:real-analysis:cauchy-sequences}
 
 \begin{definition}
   Let \((x_{N})\) be a sequence of real numbers.
@@ -376,9 +376,37 @@ We now work up to the Bolzano-Weierstrass theorem that states that every bounded
 \end{theorem}
 
 \begin{proof}
-% TODO
+  Let \(E = \{ x_{n} \mid n \in \N\}\). By the completeness axiom (since \(E\) is bounded above), \(E\) has a finite supremum that we denote \(a\). By the~\nameref{thm:real-analysis:approximation-property-for-suprema}, for all \(\epsilon > 0\), there exists \(N \in \N\) such that \(a - \epsilon < x_{N} \leq a\). Since \((x_{n})\) is monotone, it follows that \(a - \epsilon < x_{n} \leq a\) for all \(n \geq N\) and so \(x_{n} \to a\) as \(n \to \infty\). The proof for when \(x_{n}\) is decreasing is dual.
 \end{proof}
 
+\begin{example}
+  For any \(a > 0\), the sequence \(a^{\frac 1 n} \to 1\) as \(n \to \infty\).
+  % TODO
+\end{example}
+
+\begin{definition}
+  A sequence \((I_{n})_{n \in N}\) of sets is said to be \indx{nested} if \(I_{n} \subseteq I_{n+1}\) for all \(n \in \N\).
+\end{definition}
+
+\begin{theorem}[Nested interval property]\label{thm:real-analysis:nested-interval-property}
+  If \((I_{n})_{n \in \N}\) is a nested sequence of nonempty closed and bounded intervals, then
+  \[E = \cap_{n \in \N} I_{n}\]
+  is nonempty. Moreover, if \(|I_{n}| \to 0\), then \(E\) contains exactly one number.
+\end{theorem}
+
+\begin{proof}
+  %TODO do proof
+\end{proof}
+
+\begin{theorem}[Bolzano-Weierstrass]\label{thm:real-analysis:bolzano-weierstrass}
+  Every bounded sequence of real numbers has a convergent subsequence.
+\end{theorem}
+
+\begin{proof}
+  % TODO
+\end{proof}
+
+\subsection{Cauchy sequences}
 
 \section{Continuity}
 
