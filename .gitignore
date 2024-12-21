@@ -14,3 +14,8 @@ result*
 *.pdf
 *.log
 *.synctex.gz
+*.bcf
+*.idx
+*.out
+*.run.xml
+*_region_.tex

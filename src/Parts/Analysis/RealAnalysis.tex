@@ -395,7 +395,7 @@ We now work up to the Bolzano-Weierstrass theorem that states that every bounded
 \end{theorem}
 
 \begin{proof}
-  %TODO do proof
+  This follows from~\nameref{thm:real-analysis:monotone-convergence-theorem} by choosing the sequence \((a_{n})\) to be the left endpoint of every interval \(I_{n}\). This is an increasing sequence that must be bounded above and hence converges to some \(a\). Likewise, we choose the sequence \((b_{n})\) to be the right endpoints of every \(I_{n}\), which must converge to some \(b\). We must have \(a \leq b\) as otherwise there would be some \(I_{k}\) which was empty. The interval \([a,b]\) is non-empty and is equal to \(E\). If \(|I_{n}| \to 0\), then \(a = b\) and \(E = \{a\}\).
 \end{proof}
 
 \begin{theorem}[Bolzano-Weierstrass]\label{thm:real-analysis:bolzano-weierstrass}
@@ -403,13 +403,125 @@ We now work up to the Bolzano-Weierstrass theorem that states that every bounded
 \end{theorem}
 
 \begin{proof}
-  % TODO
+  Let \((x_{n})\) be a bounded sequence of real numbers and let \(a\) be its lower bound and \(b\) its upper bound. Let \(I_{0} = [a,b]\) and define \(I' = [a, (a + b) / 2]\) and \(I'' = [(a + b) / 2, b]\). As \(I_{0} = I' \cup I''\), one (or both) of these intervals contains infinitely many values of \((x_{n})\). Let \(I_{1}\) be an interval with this property and let \(n_{1} > 1\) such that \(x_{n_{1}} \in I_{1}\). We proceed by induction, repeating this process constructing a sequence of sub-intervals \((I_{n})\). As \((I_{n})\) is a nested sequence of bounded and closed intervals, by~\ref{thm:real-analysis:nested-interval-property}, there exists \(x \in \R\) that belongs to every interval \(I_{k}\). Therefor, \(| x - x_{n_{k}} | < |I_{k}| = \frac{b-1}{2^{k}}\), and so by the~\nameref{thm:real-analysis:squeeze-theorem}, \(x_{n_{k}} \to x\) as \(k \to \infty\).
 \end{proof}
 
 \subsection{Cauchy sequences}
+While the definition of a limit of a sequence states that terms of a sequence can be made arbitrarily close to the limit, we could also have used pairs of terms can be made arbitrarily close to one another. This notion is known as begin \emph{Cauchy}.
+
+\begin{definition}
+  A sequence of points \((x_{n}) \in \R\) is said to be \indx{Cauchy} if for every \(\epsilon > 0\), there is \(N \in \N\) such that for all \(n, m \geq N\), \(|x_{n} - x_{m}| < \epsilon\).
+\end{definition}
+
+\begin{theorem}[Cauchy]
+  \label{thm:label}
+  Let \((x_{n})\) be a sequence of real numbers Then, \((x_{n})\) is a Cauchy sequence if and only if \((x_{n})\) is a convergent sequence.
+\end{theorem}
+\begin{proof}
+  If \((x_{n})\) is convergent, it is clear it is Cauchy. Choosing \(\epsilon > 0\), we have the existence of an \(N\) such that for all \(n \geq N\), \(| a - x_{n} | < \epsilon / 2\), where \((x_{n}) \to a\). Then, if \(n,m \geq N\), we have
+  \[ | x_{n} - a | + | x_{m} - a | = |x_{n} - x_{m} | < \epsilon /2 + \epsilon /2 = \epsilon.\]
+
+  Now, if \((x_{n})\) is Cauchy, we can let \(\epsilon = 1\) and get \(N \in \N\) such that \(x_{n} < 1 + x_{N}\) for all \(n > N\). This shows that \((x_{n})\) is bounded and therefore must have a convergent subsequence \((x)_{n_{k}} \to a\) for some \(a\). But then we can choose \(N_{1} \in \N\) such that \(| x_{n} - x_{m} | < \epsilon /2\). There must also be \(N_{2} \in \N\) such that \(|x_{k_{n}} - a | < \epsilon / 2\) for all \(k > N_{2}\). Choosing a \(k\) such that \(k > N_{2}\) and \(n_{k} > N_{1}\) we have
+  \[|x_{n} - a| \leq |x_{n} - x_{n_{k}}| + |x_{n_{k}} - a| < \epsilon /2 + \epsilon /2 = \epsilon.\]
+\end{proof}
 
 \section{Continuity}
 
+\begin{definition}
+  Let \(a \in \R\) and let \(I\) be an open interval that contains \(a\). Let \(f\) be a real valued function defined everywhere on \(I\) except possibly at \(a\). Then \(f\) is said to converge to \(L\) as \(x\) approaches \(a\) if for every \(\epsilon > 0\), there is \(\delta >0\) such that
+  \[ 0 < | x - a | < \delta \Rightarrow | f(x) - L | < \epsilon.\]
+
+  We write \(L = \lim{x \to a}{f(x)}\). We say that \(L\) is the \indx{limit} of the function \(f\) at the point a.
+\end{definition}
+
+Limits of functions capture the ``expected'' behaviour of a function at a point, based on how it behaves around that point. How it actually behaves at that point may be different to what is expected though.
+
+\begin{theorem}[Comparison Theorem for functions]
+Let \(a \in \R\), let \(I\) be an open interval containing \(a\) and let \(f,g\) be real functions defined everywhere on \(I\), except possibly at \(a\). If both \(f\) and \(g\) have limits as \(x\) approaches \(a\) and \(f(x) \leq g(x)\) for all \(x \in I \ \{a\}\), then \(\lim{x \to a}{f(x)} \leq \lim{x \to a}{g(x)}\).
+\end{theorem}
+
+\begin{proof}
+  % TODO do proof
+\end{proof}
+
+The notion of limit defined above only works for points strictly contained in an interval. We can talk about limits at the extremes of intervals, known as one sided limits. Taking the interval to be \(\R\), we get  limits at infinity.
+
+\begin{definition}
+  Let \(a \in \R\), let \(I\) be an open interval with left end-point \(a\). We say that \(f\) converges to \(L\) as \(x\) approaches \(a\) from the right and write
+
+  \[\lim{x \to a^{+}}{f(x)} = L\]
+
+  or \(f(x) \to L\) as \(x \to a^{+}\) if for every \(\epsilon > 0\), there exists \(\delta > 0\) such that for all \(x \in I\):
+
+  \[a < x < a + \delta \Rightarrow \abs{f(x) - L} < \epsilon.\]
+
+  Let \(a \in \R\) and \(I\) an open interval with right end-point \(a\). We say that \(f\) converges to \(L\) as \(x\) approaches \(a\) from the left, and write
+
+  \[\lim{x \to a^{-}}{f(x)} = L\]
+
+  or \(f(x) \to L\) as \(x \to a^{-}\) if for every \(\epsilon > 0\) there exists \(\delta > 0\) such that for all \(x \in I\):
+
+  \[a - \delta < x < a \Rightarrow \abs{f(x) - L} < \epsilon.\]
+\end{definition}
+
+\begin{theorem}
+  Let \(f\) be a real valued function. The limit \(\lim{x \to a}{f(x)}\) exists and is equal to \(L\) if and only if \(L = \lim{x \to a^{-}}{f(x)} = \lim{x \to a^{+}}{f(x)}\).
+\end{theorem}
+
+\begin{proof}
+  % TODO do proof
+\end{proof}
+
+\begin{definition}
+  Let \(\emptyset \neq E \subseteq \R\) and \(f : E \to \R\). Then,
+  \begin{enumerate}
+  \item \(f\) is continuous at a point \(a \in E\) if for any \(\epsilon > 0\), there is \(\delta > 0\) such that
+    \[\abs{x - a} < \delta \Rightarrow \abs{f(x) - f(a)} < \epsilon\]
+
+  \item \(f\) is continuous on \(E\) if \(f\) is continuous at every \(a \in E\).
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+  Let \(E \subseteq R\) be nonempty and \(f : E \to \R\). Then \(f\) is continuous at \(a \in E\) if and only if for all sequences \(x_{n}\) such that \(x_{n} \to a\) and \(x_{n} \in E\), \(\lim{n \to \infty}{f(x_{n})} = f(a)\)
+\end{theorem}
+
+\begin{proof}
+  % TODO Do proof
+\end{proof}
+
+\begin{theorem}
+  Let \(E \subseteq \R\) be non-empty and let \(f, g : E \to \R\). If \(f\) and \(g\) are both continuous at \(a \in E\) then so are \(f + g\), \(fg\) and \(\alpha f\), for all \(\alpha \in \R\). If \(g(a) \neq 0\), \(f/g\) is continuous at \(a\).
+
+  If \(f : A \to \R\) and \(g : B \to \R\), with \(f(A) \subseteq B\), then:
+  \begin{enumerate}
+    \item If \(f\) is continuous at \(a \in A\) and \(g\) is continuous at \(f(a) \in B\), then \(g \circ f\) is continuous at \(a \in A\).
+
+    \item Let \(I \subseteq \{a\} \subseteq A\) where \(I\) is either a non-degenerate interval containing \(a\) or has \(a\) as one of its endpoints. If \(\lim{x \to a, x \in I}{f(x)} = L\) exists and \(L \in B\) with \(g\) continuous at \(L\), then
+      \[\lim{x \to a, x \in I}(g \circ f) = g(L).\]
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+  Let \(E \subseteq \R\) be nonempty. A function \(f : E \to \R\) is said to be \indx{bounded} on \(E\) if for all \(x \in E\),
+  \[\abs{f(x)} \leq M.\]
+\end{definition}
+
+\begin{theorem}
+  Let \(I \subseteq \R\) be a closed bounded interval. Let \(f : I \to \R\) be continuous on \(I\). Then \(f\) is bounded on the interval \(I\) and \(f\) attains its bounds.
+\end{theorem}
+
+\begin{proof}
+  % TODO proof
+\end{proof}
+
+\begin{theorem}[Intermediate Value Theorem]
+  Let \(I\) be a non-degenerate interval and \(f : I \to \R\) continuous. If \(a, b \in I\) with \(a < b\) then \(f\) attains on \((a,b)\) all values between \(f(a)\) and \(f(b)\).
+\end{theorem}
+
+\begin{proof}
+  % TODO do proof
+\end{proof}
 \section{Differentiation}
 
 \section{Series of real numbers}
